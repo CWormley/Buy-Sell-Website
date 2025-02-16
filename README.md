@@ -15,7 +15,7 @@
 
 | Student Name | School Email | GitHub Username |
 |    :---:     |     :---:     |     :---:       |
-| member1      |               |                 |
+| Nathan Donat-Filliod      | ndonatfilliod@sfsu.edu              | DonatNathan                |
 | member2      |               |                 |
 | member3      |               |                 |
 | member4      |               |                 |
