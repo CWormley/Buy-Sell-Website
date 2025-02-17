@@ -16,8 +16,8 @@
 | Student Name | School Email | GitHub Username |
 |    :---:     |     :---:     |     :---:       |
 | Nathan Donat-Filliod      | ndonatfilliod@sfsu.edu              | DonatNathan                |
-| member2      |               |                 |
-| member3      |               |                 |
+| Claudia Wormley  |               |                 |
+| member3      | cwormley@sfsu.edu | CWormley |
 | member4      |               |                 |
 | member5      |               |                 |
 | member6      |               |                 |
