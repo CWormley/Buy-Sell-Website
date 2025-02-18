@@ -18,7 +18,7 @@
 | Nathan Donat-Filliod      | ndonatfilliod@sfsu.edu              | DonatNathan                |
 | Claudia Wormley  |cwormley@sfsu.edu| CWormley |
 | Daniel Cervantes      |dcervantes2@sfsu.edu           |           |daniecervantes
-| member4      |               |                 |
+| Davis Rosenstein  |drosenstein@sfsu.edu   | davisjoro  |
 | member5      |               |                 |
 | member6      |               |                 |
 
