@@ -8,6 +8,9 @@ import java.io.FileInputStream;
 import java.io.BufferedInputStream;
 import java.net.InetSocketAddress;
 
+//RUN with terminal command: javac WebServer.java && java WebServer
+//Then open browser and go to http://localhost:8080/
+
 public class WebServer {
     public static void main(String[] args) throws IOException {
         int port = 8080;
