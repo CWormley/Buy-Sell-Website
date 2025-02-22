@@ -7,7 +7,7 @@
 
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
-1. [Server URL or IP](http://localhost:8080/)
+1. [Server URL or IP](http://44.211.125.32:8080)
 2. SSH username: [AWS_ACCESS_KEY_REDACTED]
 3. SSH password or key. : [AWS_SECRET_KEY_REDACTED]
     <br> If a ssh key is used please upload the key to the credentials folder.
