@@ -31,7 +31,7 @@ public class WebServer {
         private String filename;
 
         public FileHandler(String filename) {
-            this.filename = "application/src/" + filename;
+            this.filename = filename;
         }
 
         @Override
