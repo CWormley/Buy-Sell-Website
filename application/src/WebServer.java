@@ -17,10 +17,10 @@ public class WebServer {
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
         // Serve Home Page
-        server.createContext("/", new FileHandler("index.html"));
+        server.createContext("/", new FileHandler("application/src/index.html"));
 
         // Serve About Page
-        server.createContext("/about", new FileHandler("about.html"));
+        server.createContext("/about", new FileHandler("application/src/about.html"));
 
         server.setExecutor(null);
         server.start();
