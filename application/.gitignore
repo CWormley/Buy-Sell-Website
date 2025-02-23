@@ -1,0 +1,7 @@
+# Compiled class file
+*.class
+
+out/
+
+# Node temporary files
+node_modules/
