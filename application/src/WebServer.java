@@ -17,10 +17,9 @@ public class WebServer {
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
         // Serve Home Page
-        server.createContext("/", new FileHandler("application/src/index.html"));
+        server.createContext("/", new FileHandler("HTML/index.html"));
+        server.createContext("/about", new FileHandler("HTML/about.html"));
 
-        // Serve About Page
-        server.createContext("/about", new FileHandler("application/src/about.html"));
 
         server.setExecutor(null);
         server.start();
@@ -37,7 +36,10 @@ public class WebServer {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             File file = new File(filename);
+            System.out.println("Looking for file: " + file.getAbsolutePath()); // Debugging line
             if (!file.exists()) {
+                System.out.println("File not found: " + file.getAbsolutePath()); // Print if file is missing
+
                 String response = "404 Not Found";
                 exchange.sendResponseHeaders(404, response.length());
                 OutputStream os = exchange.getResponseBody();
