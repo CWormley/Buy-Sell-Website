@@ -7,7 +7,7 @@
 
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
-1. [Server URL or IP](http://3.145.158.135/)
+1. [Server URL or IP](https://gator.netmarket.gr/)
 2. SSH username: ubuntu@ip-172-31-14-151
 3. SSH password or key. : .pem file
     <br> If a ssh key is used please upload the key to the credentials folder.
