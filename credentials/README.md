@@ -7,9 +7,9 @@
 
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
-1. [Server URL or IP](http://44.211.125.32:8080)
-2. SSH username: [AWS_ACCESS_KEY_REDACTED]
-3. SSH password or key. : in id_rsa file
+1. [Server URL or IP](http://44.211.125.32/index.html)
+2. SSH username:  ssh -i ~/.ssh/Team02.pem ubuntu@44.211.125.32
+3. SSH password or key. : 
     <br> If a ssh key is used please upload the key to the credentials folder.
 4. Database URL or IP and port used.
     <br><strong> NOTE THIS DOES NOT MEAN YOUR DATABASE NEEDS A PUBLIC FACING PORT.</strong> But knowing the IP and port number will help with SSH tunneling into the database. The default port is more than sufficient for this class.
