@@ -1,0 +1,23 @@
+{
+  "name": "csc648-sp25-03-team02",
+  "version": "1.0.0",
+  "description": "## Please when ready add your teams application URL or IP to the repository description. This will help with grading. Teams are expected to keep this value up to date.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CSC-648-SFSU/csc648-sp25-03-team02.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CSC-648-SFSU/csc648-sp25-03-team02/issues"
+  },
+  "homepage": "https://github.com/CSC-648-SFSU/csc648-sp25-03-team02#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
