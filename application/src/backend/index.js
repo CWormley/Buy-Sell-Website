@@ -1,4 +1,6 @@
 const express = require('express');
+const cors = require('cors');
+const productsRoutes = require('./routes/products');
 
 const app = express();
 const port = 3000;
@@ -13,6 +15,9 @@ app.use(express.json());
 app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working!' });
 });
+
+//product route
+app.use('/api/products', productsRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
