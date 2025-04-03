@@ -2,48 +2,37 @@ const express = require('express');
 const path = require('path');
 const mysql = require('mysql2');
 
-
 const app = express();
 const port = 3000;
 
+// MySQL connection
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'Spring25team2',
-  database: 'Team02CSC648'
+  password: 'yourpassword',
+  database: 'yourdatabase'
 });
 
-//connect to the DB
+// Test database connection
 db.connect((err) => {
-  if (err){
-    console.error('MySQL connection failed', err);
-  } else {
-    console.log('Connected to MySQL database');
+  if (err) {
+    console.error('Error connecting to the database: ', err.stack);
+    return;
   }
+  console.log('Connected to the database');
 });
 
-// Middleware to parse JSON
-app.use(express.static(path.join(__dirname, '../'))); // Path to your static files
+// Middleware
+app.use(cors());
+app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Server is running without a database!');
-});
-
-//route to fetch users from DB
-app.get('/users', (req, res) => {
-  db.query('SELECT * FROM users', (err, results) => {
-    if (err){
-      console.error('Querry error:', err);
-      return res.status(500).send('Database error');
-    }
-    res.json(results);
-  });
+// Example API route
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API is working!' });
 });
 
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
-
-
 
 

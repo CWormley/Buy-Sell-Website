@@ -30,8 +30,6 @@ build/
 # Test coverage reports (if using a testing framework)
 coverage/
 
-# SASS/SCSS compiled files (if applicable)
-*.css
 
 # Temporary or backup files
 *.bak
