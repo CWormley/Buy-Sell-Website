@@ -12,6 +12,7 @@ CREATE TABLE Users (
 -- ActiveUsers Table
 CREATE TABLE ActiveUsers (
     user_id INT PRIMARY KEY,
+    last_active DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
@@ -25,6 +26,8 @@ CREATE TABLE Product (
     price DECIMAL(10, 2),
     class VARCHAR(100),
     images TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (owner_id) REFERENCES Users(user_id)
 );
 
