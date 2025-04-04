@@ -6,29 +6,39 @@ const Home = () => {
   const [entries, setEntries] = useState([]);
   const [categories, setCategories] = useState([]);
   const [recentPosts, setRecentPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Fetch categories on first render
+  // Fetch categories and recent posts on first render
   useEffect(() => {
     const fetchCategories = async () => {
+      setLoading(true);
       try {
         const res = await fetch('/api/categories');
         if (!res.ok) throw new Error('Failed to fetch categories');
         const data = await res.json();
-        setCategories(data); // Assuming data is an array of strings
+        setCategories(data); // Assuming data is an array of categories
       } catch (err) {
+        setError('Error loading categories');
         console.error('Error loading categories:', err);
+      } finally {
+        setLoading(false);
       }
     };
 
     const fetchRecentPosts = async () => {
+      setLoading(true);
       try {
         const res = await fetch('/api/recent-posts');
         if (!res.ok) throw new Error('Failed to fetch recent posts');
         const data = await res.json();
-        setRecentPosts(data); // Assuming data is an array of the 4 most recent posts
+        setRecentPosts(data); // Assuming data is an array of recent posts
         setEntries(data); // Set the recent posts as the default entries
       } catch (err) {
+        setError('Error loading recent posts');
         console.error('Error loading recent posts:', err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -54,11 +64,12 @@ const Home = () => {
       const data = await response.json();
       if (data.length === 0) {
         // If no results are found, show the recent posts
-        setEntries(recentPosts);
+        setEntries(recentPosts.length > 0 ? recentPosts : []);
       } else {
         setEntries(data);
       }
     } catch (err) {
+      setError('Search error');
       console.error('Search error:', err);
     }
   };
@@ -103,6 +114,10 @@ const Home = () => {
           </button>
         </div>
 
+        {/* Loading and Error Feedback */}
+        {loading && <p>Loading...</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+
         {/* Display Results */}
         <div style={{
           display: 'grid',
@@ -118,7 +133,7 @@ const Home = () => {
             }}>
               <h3>{entry.title}</h3>
               <p>{entry.description}</p>
-              <p><strong>Category:</strong> {entry.category}</p>
+              <p><strong>Category:</strong> {entry.category || 'Uncategorized'}</p>
             </div>
           ))}
         </div>

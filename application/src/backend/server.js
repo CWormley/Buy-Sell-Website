@@ -1,30 +1,44 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = 3000;
+const db = require('./db');
+const port = process.env.PORT || 3000;
 
-// Middleware to serve static files like CSS, images, JS
-app.use(express.static(path.join(__dirname, 'public')));
+// Test DB connection
+db.query('SELECT 1')
+  .then(() => console.log('✅ DB connected!'))
+  .catch(err => console.error('❌ DB connection failed:', err));
 
-// Define a dynamic route
-app.get('/', (req, res) => {
-    // Here, you can render an HTML page dynamically using templates or data
-    res.sendFile(path.join(__dirname, 'public', 'index.html')); // Static file
+// Middleware
+app.use(express.json()); // For parsing JSON request bodies
+app.use(express.static(path.join(__dirname, '../frontend/build'))); // Serve React build
+
+// API Routes
+const productsRoutes = require('./routes/products');
+const categoriesRoutes = require('./routes/categories'); // Update this line
+const searchRoutes = require('./routes/search');
+app.use('/api/categories', categoriesRoutes);  // Adjusted endpoint for categories
+app.use('/api/products', productsRoutes);
+app.use('/api', searchRoutes);
+
+// Catch-all to serve React for unknown routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
 
-app.get('/about', (req, res) => {
-    // Dynamically serve the about page
-    res.sendFile(path.join(__dirname, 'public', 'about.html'));
-});
-
-// Dynamic route example for API-like functionality
-app.get('/api/user', (req, res) => {
-    // Example of returning JSON data
-    res.json({ name: 'John Doe', age: 30 });
-});
+app.get('/test-db', async (req, res) => {
+    try {
+      // Run a simple query
+      const [rows, fields] = await pool.query('SELECT NOW()'); // Get current timestamp from DB
+      res.json({ success: true, data: rows });
+    } catch (err) {
+      console.error('DB query error:', err);
+      res.status(500).json({ success: false, message: 'Database query failed' });
+    }
+  });
 
 // Start server
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+  console.log(`🚀 Server running at http://localhost:${port}`);
 });
 

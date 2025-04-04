@@ -11,11 +11,9 @@ router.get('/', async (req, res) => {
         p.title,
         p.description,
         p.price,
-        c.name AS category,
-        u.email AS seller
+        p.category AS category,  -- Directly fetching category from Product table
+        p.images                -- Images (file paths)
       FROM Product p
-      JOIN Category c ON p.category_id = c.category_id
-      JOIN User u ON p.user_id = u.user_id
     `);
         res.json(products);
     } catch (error) {
