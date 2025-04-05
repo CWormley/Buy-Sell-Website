@@ -9,10 +9,6 @@ db.query('SELECT 1')
   .then(() => console.log('✅ DB connected!'))
   .catch(err => console.error('❌ DB connection failed:', err));
 
-// Middleware
-app.use(express.json()); // For parsing JSON request bodies
-app.use(express.static(path.join(__dirname, '../frontend/build'))); // Serve React build
-
 // API Routes
 const productsRoutes = require('./routes/products');
 const categoriesRoutes = require('./routes/categories');
@@ -26,10 +22,7 @@ app.use('/api/products', productsRoutes);      // Adjusted endpoint for products
 app.use('/api/search', searchRoutes);          // Adjusted endpoint for search
 app.use('/api/recent-posts', recentPostsRoutesRoutes); // Adjusted endpoint for recent posts
 
-// Catch-all route to serve React app for any other routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
-});
+
 
 // Test DB query route
 app.get('/test-db', async (req, res) => {
@@ -45,6 +38,16 @@ app.get('/test-db', async (req, res) => {
 app.get('/test', (req, res) => {
   res.json({ message: 'Test successful!' });
 });
+
+// Middleware
+app.use(express.json()); // For parsing JSON request bodies
+app.use(express.static(path.join(__dirname, '../frontend/build'))); // Serve React build
+
+// Catch-all route to serve React app for any other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+});
+
 
 // Start server
 app.listen(port,'0.0.0.0', () => {
