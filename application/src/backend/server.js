@@ -1,45 +1,36 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const app = express();
 const db = require('./db');
 const port = process.env.PORT || 3000;
 
-// Test DB connection
+// Enable CORS
+app.use(cors());
+
+// DB Test - Check database connection
 db.query('SELECT 1')
-  .then(() => console.log('✅ DB connected!'))
-  .catch(err => console.error('❌ DB connection failed:', err));
+    .then(() => console.log('✅ DB connected!'))
+    .catch(err => console.error('❌ DB connection failed:', err));
 
 // Middleware
-app.use(express.json()); // For parsing JSON request bodies
-app.use(express.static(path.join(__dirname, '../frontend/build'))); // Serve React build
+app.use(express.json());
 
-// API Routes
-const productsRoutes = require('./routes/products');
-const categoriesRoutes = require('./routes/categories'); // Update this line
-const searchRoutes = require('./routes/search');
-app.use('/api/categories', categoriesRoutes);  // Adjusted endpoint for categories
-app.use('/api/products', productsRoutes);
-app.use('/api', searchRoutes);
+// API Routes (Must come before catch-all route)
+const categoriesRoutes = require('./routes/categories');
+app.use('/api/categories', categoriesRoutes); // API route for categories
 
-// Catch-all to serve React for unknown routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+// Test route to verify routing
+app.get('/api/test', (req, res) => {
+    res.json({ msg: "Test route works!" });
 });
 
-app.get('/test-db', async (req, res) => {
-    try {
-      // Run a simple query
-      const [rows, fields] = await db.query('SELECT NOW()'); // Get current timestamp from DB
-      res.json({ success: true, data: rows });
-    } catch (err) {
-      console.error('DB query error:', err);
-      res.status(500).json({ success: false, message: 'Database query failed' });
-    }
-  });
+// Serve the frontend (Catch-all route, should be last)
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+});
 
 // Start server
 app.listen(port, '0.0.0.0', () => {
     console.log(`🚀 Server running at http://0.0.0.0:${port}`);
 });
-
-
