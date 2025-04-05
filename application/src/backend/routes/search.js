@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
-router.post('/search', async (req, res) => {
+router.post('/', async (req, res) => {
     const { filter, searchText } = req.body;
   
     // Sanitize or process searchText if necessary
