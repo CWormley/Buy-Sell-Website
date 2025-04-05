@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     const start = Date.now();
   
     try {
-      const [categories] = await db.query('SELECT * FROM Category');
+      const [categories] = await db.query('SELECT * FROM Filters');
       console.log('Query executed in', Date.now() - start, 'ms');
       res.json(categories);
     } catch (err) {

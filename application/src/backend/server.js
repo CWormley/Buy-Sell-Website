@@ -13,14 +13,13 @@ db.query('SELECT 1')
 const productsRoutes = require('./routes/products');
 const categoriesRoutes = require('./routes/categories');
 const searchRoutes = require('./routes/search');
-const recentPostsRoutesRoutes = require('./routes/recent-posts'); // Import recent-posts routes
+const recentPostsRoutes = require('./routes/recent-posts'); // Import recent-posts routes
 
 // Mounting routes for categories, products, and search
 app.use('/api/categories', categoriesRoutes);  // Adjusted endpoint for categories
 app.use('/api/products', productsRoutes);      // Adjusted endpoint for products
-app.use('/api/products', productsRoutes);      // Adjusted endpoint for products
 app.use('/api/search', searchRoutes);          // Adjusted endpoint for search
-app.use('/api/recent-posts', recentPostsRoutesRoutes); // Adjusted endpoint for recent posts
+app.use('/api/recent-posts', recentPostsRoutes); // Adjusted endpoint for recent posts
 
 
 
@@ -36,6 +35,7 @@ app.get('/test-db', async (req, res) => {
 });
 
 app.get('/test', (req, res) => {
+  console.log('Test route hit!');
   res.json({ message: 'Test successful!' });
 });
 
