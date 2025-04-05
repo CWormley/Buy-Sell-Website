@@ -29,7 +29,7 @@ app.get('*', (req, res) => {
 app.get('/test-db', async (req, res) => {
     try {
       // Run a simple query
-      const [rows, fields] = await pool.query('SELECT NOW()'); // Get current timestamp from DB
+      const [rows, fields] = await db.query('SELECT NOW()'); // Get current timestamp from DB
       res.json({ success: true, data: rows });
     } catch (err) {
       console.error('DB query error:', err);
