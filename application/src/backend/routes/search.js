@@ -1,4 +1,7 @@
 // routes/search.js (or add to your existing file)
+const express = require('express');
+const router = express.Router();
+const db = require('../db');
 router.post('/search', async (req, res) => {
     const { filter, searchText } = req.body;
   
