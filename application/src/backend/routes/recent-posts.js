@@ -21,3 +21,4 @@ router.get('/', async (req, res) => {
       res.status(500).json({ error: 'Database query failed' });
   }
 });
+module.exports = router;
