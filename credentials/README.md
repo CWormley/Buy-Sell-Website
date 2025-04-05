@@ -7,7 +7,7 @@
 
 # Below is a list of items required. Missing items will causes points to be deducted from multiple milestone submissions.
 
-1. [Server URL or IP](http://44.211.125.32)
+1. [Server URL or IP](http://44.201.159.31)
 2. SSH username:   ssh -i ~/.ssh/Team02.pem ubuntu@44.211.125.32
 3. SSH password or key. : 
     <br> If a ssh key is used please upload the key to the credentials folder.
