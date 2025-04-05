@@ -4,14 +4,17 @@ const router = express.Router();
 const db = require('../db');
 
 router.get('/', async (req, res) => {
+    console.log('Fetching categories...');
+    const start = Date.now();
+  
     try {
-        const [rows] = await db.query(`SELECT DISTINCT category FROM Filters`);
-        const categories = rows.map(row => row.category);  // Extract category values
-        res.json(categories);
-    } catch (error) {
-        console.error('Error fetching categories:', error);
-        res.status(500).json({ error: 'Failed to load categories' });
+      const [categories] = await db.query('SELECT * FROM Category');
+      console.log('Query executed in', Date.now() - start, 'ms');
+      res.json(categories);
+    } catch (err) {
+      console.error('Error fetching categories:', err);
+      res.status(500).json({ error: 'Database error' });
     }
-});
+  });
 
 module.exports = router;
