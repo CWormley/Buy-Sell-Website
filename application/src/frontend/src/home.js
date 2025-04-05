@@ -49,6 +49,7 @@ const Home = () => {
   }, []);
 
   const handleSearch = async () => {
+    console.log("Submitting search request..."); // 👈 Add this
     try {
       const response = await fetch('/api/search', {
         method: 'POST',
@@ -60,10 +61,13 @@ const Home = () => {
           searchText: searchTerm
         })
       });
+      console.log("Response received"); // 👈 Add this
 
       if (!response.ok) throw new Error('Search failed');
 
       const data = await response.json();
+      console.log("Search results:", data); // 👈 Add this
+
       if (data.length === 0) {
         // If no results are found, show the recent posts
         setEntries(recentPosts.length > 0 ? recentPosts : []);
