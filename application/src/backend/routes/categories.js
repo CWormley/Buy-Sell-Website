@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-router.get('/categories', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const [rows] = await db.query(`SELECT DISTINCT category FROM Filters`);
         const categories = rows.map(row => row.category);  // Extract category values

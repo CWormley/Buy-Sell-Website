@@ -9,46 +9,43 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetch categories and recent posts on first render
+  // Fetch categories and recent posts in parallel
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await fetch('/api/categories');
-        if (!res.ok) throw new Error('Failed to fetch categories');
-        const data = await res.json();
-        setCategories(data); // Assuming data is an array of categories
+        const [catRes, postRes] = await Promise.all([
+          fetch('http://44.201.159.31:5000/api/categories'),
+          fetch('http://44.201.159.31:5000/api/recent-posts')
+        ]);
+
+        if (!catRes.ok || !postRes.ok) {
+          throw new Error('Failed fetching categories or recent posts');
+        }
+
+        const [catData, postData] = await Promise.all([
+          catRes.json(),
+          postRes.json()
+        ]);
+
+        setCategories(catData);
+        setRecentPosts(postData);
+        setEntries(postData);
       } catch (err) {
-        setError('Error loading categories');
-        console.error('Error loading categories:', err);
+        setError('Error loading initial data');
+        console.error('Initial data load error:', err);
       } finally {
         setLoading(false);
       }
     };
 
-    const fetchRecentPosts = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch('/api/recent-posts');
-        if (!res.ok) throw new Error('Failed to fetch recent posts');
-        const data = await res.json();
-        setRecentPosts(data); // Assuming data is an array of recent posts
-        setEntries(data); // Set the recent posts as the default entries
-      } catch (err) {
-        setError('Error loading recent posts');
-        console.error('Error loading recent posts:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCategories();
-    fetchRecentPosts();
+    fetchData();
   }, []);
 
   const handleSearch = async () => {
+    setLoading(true);
     try {
-      const response = await fetch('/api/search', {
+      const response = await fetch('http://44.201.159.31:5000/api/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -63,14 +60,16 @@ const Home = () => {
 
       const data = await response.json();
       if (data.length === 0) {
-        // If no results are found, show the recent posts
         setEntries(recentPosts.length > 0 ? recentPosts : []);
       } else {
         setEntries(data);
       }
+      setError(null); // Clear any previous errors
     } catch (err) {
       setError('Search error');
       console.error('Search error:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -117,6 +116,7 @@ const Home = () => {
         {/* Loading and Error Feedback */}
         {loading && <p>Loading...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
+        {!loading && entries.length === 0 && !error && <p>No results found.</p>}
 
         {/* Display Results */}
         <div style={{
