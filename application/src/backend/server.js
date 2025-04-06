@@ -4,6 +4,11 @@ const db = require('./db'); // Assuming you have a db.js to handle DB connection
 const app = express();
 const port = process.env.PORT || 5000;
 
+// Middleware
+const cors = require('cors');
+app.use(cors()); // Enable CORS for all origins (you can configure it more specifically if needed)
+app.use(express.json()); // For parsing JSON request bodies
+
 // Test DB connection
 db.query('SELECT 1')
   .then(() => console.log('✅ DB connected!'))
@@ -16,16 +21,10 @@ const searchRoutes = require('./routes/search');
 const recentPostsRoutes = require('./routes/recent-posts'); // Import recent-posts routes
 
 // Mounting routes for categories, products, and search
-app.use('/api/categories', categoriesRoutes);  // Adjusted endpoint for categories
-app.use('/api/products', productsRoutes);      // Adjusted endpoint for products
-app.use('/api/search', searchRoutes);          // Adjusted endpoint for search
+app.use('/api/categories', categoriesRoutes);
+app.use('/api/products', productsRoutes);
+app.use('/api/search', searchRoutes);
 app.use('/api/recent-posts', recentPostsRoutes); // Adjusted endpoint for recent posts
-
-const cors = require('cors');
-
-// Enable CORS for all origins (or specify specific domains)
-app.use(cors());
-
 
 // Test DB query route
 app.get('/test-db', async (req, res) => {
@@ -38,21 +37,18 @@ app.get('/test-db', async (req, res) => {
   }
 });
 
+// Test route
 app.get('/test', (req, res) => {
   console.log('Test route hit!');
   res.json({ message: 'Test successful!' });
 });
-
-// Middleware
-app.use(express.json()); // For parsing JSON request bodies
 
 // Catch-all route to serve React app for any other routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
 
-
 // Start server
-app.listen(port,'0.0.0.0', () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`🚀 Server running at :${port}`);
 });
