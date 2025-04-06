@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors');
 const path = require('path');
 const db = require('./db'); // Assuming you have a db.js to handle DB connection
 const app = express();
@@ -10,13 +9,11 @@ const cors = require('cors');
 app.use(cors()); // Enable CORS for all origins (you can configure it more specifically if needed)
 app.use(express.json()); // For parsing JSON request bodies
 
+// Test DB connection
+db.query('SELECT 1')
+  .then(() => console.log('✅ DB connected!'))
+  .catch(err => console.error('❌ DB connection failed:', err));
 
-const app = express();
-const port = process.env.PORT || 5000;
-
-// ✅ Middleware BEFORE routes
-app.use(express.json());
-app.use(cors());
 
 // API Routes
 const productsRoutes = require('./routes/products');
@@ -56,4 +53,3 @@ app.get('*', (req, res) => {
 app.listen(port, '0.0.0.0', () => {
   console.log(`🚀 Server running at :${port}`);
 });
-
