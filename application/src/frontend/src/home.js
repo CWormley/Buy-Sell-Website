@@ -18,16 +18,22 @@ const Home = () => {
           fetch('http://44.201.159.31/api/categories'),
           fetch('http://44.201.159.31/api/recent-posts')
         ]);
-
+  
+        console.log('Categories response:', catRes);
+        console.log('Recent posts response:', postRes);
+  
         if (!catRes.ok || !postRes.ok) {
           throw new Error('Failed fetching categories or recent posts');
         }
-
+  
         const [catData, postData] = await Promise.all([
           catRes.json(),
           postRes.json()
         ]);
-
+  
+        console.log('Categories data:', catData);
+        console.log('Recent posts data:', postData);
+  
         setCategories(catData);
         setRecentPosts(postData);
         setEntries(postData);
@@ -38,7 +44,7 @@ const Home = () => {
         setLoading(false);
       }
     };
-
+  
     fetchData();
   }, []);
 
