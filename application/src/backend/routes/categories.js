@@ -1,4 +1,3 @@
-// filters.js (or whatever file is appropriate for the filters functionality)
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
@@ -14,6 +13,7 @@ router.get('/', async (req, res) => {
     } catch (err) {
       console.error('Error fetching categories:', err);
       res.status(500).json({ error: 'Database error' });
+
     }
   });
 

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const db = require('./db'); // Assuming you have a db.js to handle DB connection
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json()); // For parsing JSON request bodies
 db.query('SELECT 1')
   .then(() => console.log('✅ DB connected!'))
   .catch(err => console.error('❌ DB connection failed:', err));
+
 
 // API Routes
 const productsRoutes = require('./routes/products');

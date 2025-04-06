@@ -11,6 +11,7 @@
 2. SSH username:  ubuntu
 3. SSH password or key. : N/A
 4. Database URL or IP and port used: 127.0.0.1
+
 5. Database username: team02csc648
 6. Database password: [REDACTED]
 7. Database name (basically the name that contains all your tables)
