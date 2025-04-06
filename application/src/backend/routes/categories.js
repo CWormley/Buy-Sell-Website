@@ -2,22 +2,19 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-// Route to get categories
 router.get('/', async (req, res) => {
-    console.log('🔥 /api/categories route hit');
+    console.log('Fetching categories...');
+    const start = Date.now();
+  
     try {
-        const [rows] = await db.query('SELECT DISTINCT category FROM Filters');
-        if (rows.length === 0) {
-            return res.status(404).json({ message: 'No categories found' });
-        }
+      const [categories] = await db.query('SELECT * FROM Filters');
+      console.log('Query executed in', Date.now() - start, 'ms');
+      res.json(categories);
+    } catch (err) {
+      console.error('Error fetching categories:', err);
+      res.status(500).json({ error: 'Database error' });
 
-        const categories = rows.map(row => row.category);
-        console.log('Categories fetched:', categories);
-        res.json(categories); // Send the categories as a JSON response
-    } catch (error) {
-        console.error('❌ Error fetching categories:', error);
-        res.status(500).json({ error: 'Failed to load categories' });
     }
-});
+  });
 
 module.exports = router;

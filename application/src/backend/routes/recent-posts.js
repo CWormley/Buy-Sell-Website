@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
-router.get('/recent-posts', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
       const [recentPosts] = await db.query(`
           SELECT 
@@ -21,3 +21,4 @@ router.get('/recent-posts', async (req, res) => {
       res.status(500).json({ error: 'Database query failed' });
   }
 });
+module.exports = router;

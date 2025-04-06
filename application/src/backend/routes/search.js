@@ -1,6 +1,7 @@
+// routes/search.js (or add to your existing file)
 const express = require('express');
-const db = require('../db');
 const router = express.Router();
+const db = require('../db');
 
 router.post('/', async (req, res) => {
     const { filter, searchText } = req.body;
@@ -33,6 +34,6 @@ router.post('/', async (req, res) => {
         console.error('❌ Search error:', err);
         res.status(500).json({ error: 'Database search failed' });
     }
-});
+  });
+  module.exports = router;
 
-module.exports = router;
