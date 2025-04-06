@@ -9,6 +9,8 @@ const Home = () => {
   const [loadingCategories, setLoadingCategories] = useState(false);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [error, setError] = useState(null);
+  const [searchNotice, setSearchNotice] = useState('');
+
 
   // Fetch categories and recent posts in parallel
   useEffect(() => {
@@ -73,8 +75,10 @@ const Home = () => {
 
       if (data.length === 0) {
         setEntries(recentPosts.length > 0 ? recentPosts : []);
+        setSearchNotice('No matching results from search, showing recent posts');
       } else {
         setEntries(data);
+        setSearchNotice('');
       }
       setError(null); // Clear any previous errors
     } catch (err) {
@@ -129,7 +133,8 @@ const Home = () => {
         {loading && <p>Loading...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {!loading && entries.length === 0 && !error && !recentPosts.length && <p>No results found.</p>}
-  
+        {searchNotice && <p style={{ color: 'gray', fontStyle: 'italic' }}>{searchNotice}</p>}
+
         {/* Display Results */}
         <div style={{
           display: 'grid',
