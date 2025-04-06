@@ -41,7 +41,6 @@ app.get('/test', (req, res) => {
 
 // Middleware
 app.use(express.json()); // For parsing JSON request bodies
-app.use(express.static(path.join(__dirname, '../frontend/build'))); // Serve React build
 
 // Catch-all route to serve React app for any other routes
 app.get('*', (req, res) => {
