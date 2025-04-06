@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState('All');
+  const [filter, setFilter] = useState('All Categories');
   const [entries, setEntries] = useState([]);
   const [categories, setCategories] = useState([]);
   const [recentPosts, setRecentPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [searchNotice, setSearchNotice] = useState('');
-
 
   // Fetch categories and recent posts in parallel
   useEffect(() => {
@@ -20,22 +18,22 @@ const Home = () => {
           fetch('http://44.201.159.31/api/categories'),
           fetch('http://44.201.159.31/api/recent-posts')
         ]);
-  
+
         console.log('Categories response:', catRes);
         console.log('Recent posts response:', postRes);
-  
+
         if (!catRes.ok || !postRes.ok) {
           throw new Error('Failed fetching categories or recent posts');
         }
-  
+
         const [catData, postData] = await Promise.all([
           catRes.json(),
           postRes.json()
         ]);
-  
+
         console.log('Categories data:', catData);
         console.log('Recent posts data:', postData);
-  
+
         setCategories(catData);
         setRecentPosts(postData);
         setEntries(postData);
@@ -46,7 +44,6 @@ const Home = () => {
         setLoading(false);
       }
     };
-  
     fetchData();
   }, []);
 
@@ -56,11 +53,11 @@ const Home = () => {
       const response = await fetch('http://44.201.159.31/api/search', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          filter,
-          searchText: searchTerm
+        filter,
+        searchText: searchTerm
         })
       });
   
@@ -71,10 +68,8 @@ const Home = () => {
       // If no search results are found, fallback to recentPosts
       if (data.length === 0) {
         setEntries(recentPosts.length > 0 ? recentPosts : []);
-        setSearchNotice('No matching results from search, showing recent posts');
       } else {
         setEntries(data);
-        setSearchNotice('');
       }
       setError(null); // Clear any previous errors
     } catch (err) {
@@ -84,7 +79,7 @@ const Home = () => {
       setLoading(false);
     }
   };
-  
+    
   return (
     <div>
       <nav>
@@ -97,7 +92,7 @@ const Home = () => {
       <header>
         <h1>Welcome to Team 2's Web Page!</h1>
       </header>
-  
+    
       <div id="mainBody">
         {/* Search Row */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
@@ -106,7 +101,7 @@ const Home = () => {
             onChange={(e) => setFilter(e.target.value)}
             style={{ padding: '0.5rem' }}
           >
-            <option value="All">All Categories</option>
+            <option value="All Categories">All Categories</option>
             {categories.map((cat, idx) => (
               <option key={idx} value={cat.category}>{cat.category}</option>
             ))}
@@ -120,26 +115,21 @@ const Home = () => {
             style={{ padding: '0.5rem', flex: 1 }}
           />
   
-          <button onClick={handleSearch} style={{ padding: '0.5rem 1rem' }}>
-            Enter
-          </button>
+          <button onClick={handleSearch} style={{ padding: '0.5rem 1rem' }}>Enter</button>
         </div>
-  
+
         {/* Loading and Error Feedback */}
         {loading && <p>Loading...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        {!loading && entries.length === 0 && !error && !recentPosts.length && <p>No results found.</p>}
-        {searchNotice && <p style={{ color: 'gray', fontStyle: 'italic' }}>{searchNotice}</p>}
+
+        {(Array.isArray(entries) ? entries : []).length === 0 && <p>No matching results from search, showing recent posts:</p>}
 
         {/* Display Results */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-          gap: '1rem'
-        }}>
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1rem'}}>
           {/* Ensure both entries and recentPosts are arrays */}
           {(Array.isArray(entries) ? entries : []).length > 0
             ? (Array.isArray(entries) ? entries : []).map((entry, index) => (
+              (entry.category === filter || filter === "All Categories") && //TODO: Remove that line and filter will be fixed in /api/search
                 <div key={index} style={{
                   border: '1px solid #ccc',
                   borderRadius: '8px',
@@ -150,36 +140,34 @@ const Home = () => {
                   <p>{entry.description}</p>
                   <p><strong>Category:</strong> {entry.category || 'Uncategorized'}</p>
                 </div>
-              ))
+            ))
             : (Array.isArray(recentPosts) ? recentPosts : []).map((entry, index) => (
-                <div key={index} style={{
-                  border: '1px solid #ccc',
-                  borderRadius: '8px',
-                  padding: '1rem',
-                  backgroundColor: '#f9f9f9'
-                }}>
-                  <h3>{entry.title}</h3>
-                  <p>{entry.description}</p>
-                  <p><strong>Category:</strong> {entry.category || 'Uncategorized'}</p>
-                </div>
-              ))
+              <div key={index} style={{
+                border: '1px solid #ccc',
+                borderRadius: '8px',
+                padding: '1rem',
+                backgroundColor: '#f9f9f9'
+              }}>
+                <h3>{entry.title}</h3>
+                <p>{entry.description}</p>
+                <p><strong>Category:</strong> {entry.category || 'Uncategorized'}</p>
+              </div>
+            ))
           }
         </div>
       </div>
-  
+    
       <hr />
-  
+    
       <footer>
         <div id="footer">
-          <h5>Use cases</h5>
-          <h5>Explore</h5>
-          <h5>Resources</h5>
+        <h5>Use cases</h5>
+        <h5>Explore</h5>
+        <h5>Resources</h5>
         </div>
       </footer>
     </div>
   );
-  
-  
 };
 
 export default Home;
