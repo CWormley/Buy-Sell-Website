@@ -21,6 +21,10 @@ app.use('/api/products', productsRoutes);      // Adjusted endpoint for products
 app.use('/api/search', searchRoutes);          // Adjusted endpoint for search
 app.use('/api/recent-posts', recentPostsRoutes); // Adjusted endpoint for recent posts
 
+const cors = require('cors');
+
+// Enable CORS for all origins (or specify specific domains)
+app.use(cors());
 
 
 // Test DB query route

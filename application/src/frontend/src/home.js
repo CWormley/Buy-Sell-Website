@@ -15,8 +15,8 @@ const Home = () => {
       setLoading(true);
       try {
         const [catRes, postRes] = await Promise.all([
-          fetch('http://44.201.159.31:5000/api/categories'),
-          fetch('http://44.201.159.31:5000/api/recent-posts')
+          fetch('http://44.201.159.31/api/categories'),
+          fetch('http://44.201.159.31/api/recent-posts')
         ]);
 
         if (!catRes.ok || !postRes.ok) {
@@ -45,7 +45,7 @@ const Home = () => {
   const handleSearch = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://44.201.159.31:5000/api/search', {
+      const response = await fetch('http://44.201.159.31/api/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
