@@ -4,7 +4,6 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
     const { filter, searchText } = req.body;
-    console.log('🔍 Received search request:', { filter, searchText });
 
     let query = `
         SELECT product_id, title, description, price, category, images
@@ -20,8 +19,6 @@ router.post('/', async (req, res) => {
 
     console.log("🔍 SQL Query:", query);
     console.log("🔍 Params:", params);
-    // Add this to see if we hit the DB line
-    console.log("🧪 About to query DB...");
 
     try {
         const [results] = await db.query(query, params);
