@@ -61,10 +61,12 @@ const Home = () => {
           searchText: searchTerm
         })
       });
-
+  
       if (!response.ok) throw new Error('Search failed');
-
+  
       const data = await response.json();
+  
+      // If no search results are found, fallback to recentPosts
       if (data.length === 0) {
         setEntries(recentPosts.length > 0 ? recentPosts : []);
       } else {
@@ -78,7 +80,7 @@ const Home = () => {
       setLoading(false);
     }
   };
-
+  
   return (
     <div>
       <nav>
@@ -87,11 +89,11 @@ const Home = () => {
           <li><a href="/about">About</a></li>
         </ul>
       </nav>
-
+  
       <header>
         <h1>Welcome to Team 2's Web Page!</h1>
       </header>
-
+  
       <div id="mainBody">
         {/* Search Row */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
@@ -105,7 +107,7 @@ const Home = () => {
               <option key={idx} value={cat.category}>{cat.category}</option>
             ))}
           </select>
-
+  
           <input
             type="text"
             placeholder="Search entries..."
@@ -113,24 +115,24 @@ const Home = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{ padding: '0.5rem', flex: 1 }}
           />
-
+  
           <button onClick={handleSearch} style={{ padding: '0.5rem 1rem' }}>
             Enter
           </button>
         </div>
-
+  
         {/* Loading and Error Feedback */}
         {loading && <p>Loading...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        {!loading && entries.length === 0 && !error && <p>No results found.</p>}
-
+        {!loading && entries.length === 0 && !error && !recentPosts.length && <p>No results found.</p>}
+  
         {/* Display Results */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
           gap: '1rem'
         }}>
-          {entries.map((entry, index) => (
+          {(entries.length > 0 ? entries : recentPosts).map((entry, index) => (
             <div key={index} style={{
               border: '1px solid #ccc',
               borderRadius: '8px',
@@ -144,9 +146,9 @@ const Home = () => {
           ))}
         </div>
       </div>
-
+  
       <hr />
-
+  
       <footer>
         <div id="footer">
           <h5>Use cases</h5>
@@ -156,6 +158,7 @@ const Home = () => {
       </footer>
     </div>
   );
+  
 };
 
 export default Home;
