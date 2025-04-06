@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors');
 const path = require('path');
 const db = require('./db'); // Assuming you have a db.js to handle DB connection
 const app = express();
