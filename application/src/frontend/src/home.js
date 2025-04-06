@@ -132,18 +132,33 @@ const Home = () => {
           gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
           gap: '1rem'
         }}>
-          {(entries.length > 0 ? entries : recentPosts).map((entry, index) => (
-            <div key={index} style={{
-              border: '1px solid #ccc',
-              borderRadius: '8px',
-              padding: '1rem',
-              backgroundColor: '#f9f9f9'
-            }}>
-              <h3>{entry.title}</h3>
-              <p>{entry.description}</p>
-              <p><strong>Category:</strong> {entry.category || 'Uncategorized'}</p>
-            </div>
-          ))}
+          {/* Ensure both entries and recentPosts are arrays */}
+          {(Array.isArray(entries) ? entries : []).length > 0
+            ? (Array.isArray(entries) ? entries : []).map((entry, index) => (
+                <div key={index} style={{
+                  border: '1px solid #ccc',
+                  borderRadius: '8px',
+                  padding: '1rem',
+                  backgroundColor: '#f9f9f9'
+                }}>
+                  <h3>{entry.title}</h3>
+                  <p>{entry.description}</p>
+                  <p><strong>Category:</strong> {entry.category || 'Uncategorized'}</p>
+                </div>
+              ))
+            : (Array.isArray(recentPosts) ? recentPosts : []).map((entry, index) => (
+                <div key={index} style={{
+                  border: '1px solid #ccc',
+                  borderRadius: '8px',
+                  padding: '1rem',
+                  backgroundColor: '#f9f9f9'
+                }}>
+                  <h3>{entry.title}</h3>
+                  <p>{entry.description}</p>
+                  <p><strong>Category:</strong> {entry.category || 'Uncategorized'}</p>
+                </div>
+              ))
+          }
         </div>
       </div>
   
@@ -158,6 +173,7 @@ const Home = () => {
       </footer>
     </div>
   );
+  
   
 };
 
