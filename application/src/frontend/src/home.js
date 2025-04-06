@@ -6,8 +6,7 @@ const Home = () => {
   const [entries, setEntries] = useState([]);
   const [categories, setCategories] = useState([]);
   const [recentPosts, setRecentPosts] = useState([]);
-  const [loadingCategories, setLoadingCategories] = useState(false);
-  const [loadingPosts, setLoadingPosts] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   // Fetch categories and recent posts in parallel
@@ -38,12 +37,11 @@ const Home = () => {
         setCategories(catData);
         setRecentPosts(postData);
         setEntries(postData);
-
       } catch (err) {
         setError('Error loading initial data');
         console.error('Initial data load error:', err);
       } finally {
-        setLoadingCategories(false);
+        setLoading(false);
       }
     };
   
@@ -52,7 +50,6 @@ const Home = () => {
 
   const handleSearch = async () => {
     setLoading(true);
-
     try {
       const response = await fetch('http://44.201.159.31/api/search', {
         method: 'POST',
@@ -64,13 +61,12 @@ const Home = () => {
           searchText: searchTerm
         })
       });
-
+  
       if (!response.ok) throw new Error('Search failed');
   
       const data = await response.json();
   
       // If no search results are found, fallback to recentPosts
-
       if (data.length === 0) {
         setEntries(recentPosts.length > 0 ? recentPosts : []);
       } else {
@@ -176,7 +172,6 @@ const Home = () => {
         </div>
       </footer>
     </div>
-
   );
   
   
