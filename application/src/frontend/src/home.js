@@ -7,6 +7,7 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
   const [recentPosts, setRecentPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [noResults, setNoResults] = useState(false);
   const [error, setError] = useState(null);
 
   // Fetch categories and recent posts in parallel
@@ -50,6 +51,7 @@ const Home = () => {
 
   const handleSearch = async () => {
     setLoading(true);
+    setNoResults(false);
     try {
       const response = await fetch('http://44.201.159.31/api/search', {
         method: 'POST',
@@ -68,6 +70,7 @@ const Home = () => {
   
       // If no search results are found, fallback to recentPosts
       if (data.length === 0) {
+        setNoResults(true);
         setEntries(recentPosts.length > 0 ? recentPosts : []);
       } else {
         setEntries(data);
@@ -125,7 +128,11 @@ const Home = () => {
         {loading && <p>Loading...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {!loading && entries.length === 0 && !error && !recentPosts.length && <p>No results found.</p>}
-  
+        {noResults && !loading && (
+          <p style={{ color: 'gray', fontStyle: 'italic' }}>
+            No matching results found. Showing recent posts instead.
+            </p>
+        )}
         {/* Display Results */}
         <div style={{
           display: 'grid',
