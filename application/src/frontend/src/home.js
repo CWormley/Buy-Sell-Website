@@ -127,12 +127,14 @@ const Home = () => {
         {/* Loading and Error Feedback */}
         {loading && <p>Loading...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        {!loading && entries.length === 0 && !error && !recentPosts.length && <p>No results found.</p>}
         {noResults && !loading && (
-          <p style={{ color: 'gray', fontStyle: 'italic' }}>
+          <p style={{ color: 'black', fontStyle: 'italic' }}>
             No matching results found. Showing recent posts instead.
             </p>
         )}
+        <p style={{ color: 'black', fontStyle: 'italic' }}>
+            testing printing
+            </p>
         {/* Display Results */}
         <div style={{
           display: 'grid',
