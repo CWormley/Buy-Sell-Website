@@ -1,30 +1,56 @@
 const express = require('express');
 const path = require('path');
+const db = require('./db'); // Assuming you have a db.js to handle DB connection
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 5000;
 
-// Middleware to serve static files like CSS, images, JS
-app.use(express.static(path.join(__dirname, 'public')));
+// Middleware
+const cors = require('cors');
+app.use(cors()); // Enable CORS for all origins (you can configure it more specifically if needed)
+app.use(express.json()); // For parsing JSON request bodies
 
-// Define a dynamic route
-app.get('/', (req, res) => {
-    // Here, you can render an HTML page dynamically using templates or data
-    res.sendFile(path.join(__dirname, 'public', 'index.html')); // Static file
+// Test DB connection
+db.query('SELECT 1')
+  .then(() => console.log('✅ DB connected!'))
+  .catch(err => console.error('❌ DB connection failed:', err));
+
+
+// API Routes
+const productsRoutes = require('./routes/products');
+const categoriesRoutes = require('./routes/categories');
+const searchRoutes = require('./routes/search');
+const recentPostsRoutes = require('./routes/recent-posts'); // Import recent-posts routes
+
+// Mounting routes for categories, products, and search
+app.use('/api/categories', categoriesRoutes);
+app.use('/api/products', productsRoutes);
+app.use('/api/search', searchRoutes);
+app.use('/api/recent-posts', recentPostsRoutes); // Adjusted endpoint for recent posts
+
+// Test DB query route
+app.get('/test-db', async (req, res) => {
+  try {
+    const [rows, fields] = await db.query('SELECT NOW()'); // Get current timestamp from DB
+    res.json({ success: true, data: rows });
+  } catch (err) {
+    console.error('DB query error:', err);
+    res.status(500).json({ success: false, message: 'Database query failed' });
+  }
 });
 
-app.get('/about', (req, res) => {
-    // Dynamically serve the about page
-    res.sendFile(path.join(__dirname, 'public', 'about.html'));
+// Test route
+app.get('/test', (req, res) => {
+  console.log('Test route hit!');
+  res.json({ message: 'Test successful!' });
 });
 
-// Dynamic route example for API-like functionality
-app.get('/api/user', (req, res) => {
-    // Example of returning JSON data
-    res.json({ name: 'John Doe', age: 30 });
+// Catch-all route to serve React app for any other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
 
 // Start server
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`🚀 Server running at :${port}`);
 });
 
