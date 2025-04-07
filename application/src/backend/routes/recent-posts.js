@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
             p.title,
             p.description,
             p.price,
-            p.category  -- Use the category column directly from the Product table
+            p.category,  -- Use the category column directly from the Product table
             p.images                -- Images (file paths)
           FROM Product p
           ORDER BY p.product_id DESC  -- Ordering by product_id (or another column if available)
