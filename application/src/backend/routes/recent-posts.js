@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
             p.category,  -- Use the category column directly from the Product table
             p.images                -- Images (file paths)
           FROM Product p
-          ORDER BY p.product_id DESC  -- Ordering by product_id (or another column if available)
+          ORDER BY p.created_at DESC  -- Ordering by product_id (or another column if available)
           LIMIT 4
       `);
       res.json(recentPosts);

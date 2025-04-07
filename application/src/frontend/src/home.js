@@ -19,7 +19,7 @@ const Home = () => {
           fetch('http://44.201.159.31/api/categories'),
           fetch('http://44.201.159.31/api/recent-posts')
         ]);
-  
+
         console.log('Categories response:', catRes);
         console.log('Recent posts response:', postRes);
   
@@ -83,7 +83,7 @@ const Home = () => {
       setLoading(false);
     }
   };
-  
+
   return (
     <div>
       <nav>
@@ -127,12 +127,8 @@ const Home = () => {
         {/* Loading and Error Feedback */}
         {loading && <p>Loading...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        {noResults && !loading && (
-          <p style={{ color: 'black', fontStyle: 'italic' }}>
-            No matching results found. Showing recent posts instead.
-            </p>
-        )}
-    
+        {(Array.isArray(entries) ? entries : []).length === 0 && <p>No matching results found. Showing recent posts instead.</p>}
+
         {/* Display Results */}
         <div style={{
           display: 'grid',
@@ -149,11 +145,7 @@ const Home = () => {
                   backgroundColor: '#f9f9f9'
                 }}>
                   <h3>{entry.title}</h3>
-                  <img 
-                    src={`http://44.201.159.31/images/${entry.images}`} 
-                    alt={entry.title} 
-                    style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '0.5rem' }} 
-                  />
+                  <img src={"/Images/" + entry.images} alt={entry.title} style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '0.5rem' }} />
                   <p>{entry.description}</p>
                   <p><strong>Category:</strong> {entry.category || 'Uncategorized'}</p>
                 </div>
@@ -166,11 +158,7 @@ const Home = () => {
                   backgroundColor: '#f9f9f9'
                 }}>
                   <h3>{entry.title}</h3>
-                  <img 
-                    src={`http://44.201.159.31/images/${entry.images}`} 
-                    alt={entry.title} 
-                    style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '0.5rem' }} 
-                  />
+                  <img src={"/Images/" + entry.images} alt={entry.title} style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '0.5rem' }} />
                   <p>{entry.description}</p>
                   <p><strong>Category:</strong> {entry.category || 'Uncategorized'}</p>
                 </div>
@@ -190,8 +178,6 @@ const Home = () => {
       </footer>
     </div>
   );
-  
-  
 };
 
 export default Home;
