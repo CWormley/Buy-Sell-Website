@@ -80,6 +80,7 @@ const Home = () => {
     }
   };
     
+
   return (
     <div>
       <nav>
@@ -164,10 +165,12 @@ const Home = () => {
         <h5>Use cases</h5>
         <h5>Explore</h5>
         <h5>Resources</h5>
+
         </div>
       </footer>
     </div>
   );
 };
+
 
 export default Home;

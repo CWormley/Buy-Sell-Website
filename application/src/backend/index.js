@@ -5,6 +5,7 @@ const productsRoutes = require('./routes/products');
 const categoryRoutes = require('./routes/categories');
 const recentPostsRoutes = require('./routes/recent-posts');  // Import recent-posts routes
 
+
 const app = express();
 const port = 3000;
 
@@ -33,6 +34,7 @@ app.get('/api/test', (req, res) => {
 app.use('/api/products', productsRoutes);    // All routes from productsRoutes will be prefixed with '/api/products'
 app.use('/api/categories', categoryRoutes);  // All routes from categoryRoutes will be prefixed with '/api/categories'
 app.use('/api/recent-posts', recentPostsRoutes);          // Register recent-posts routes under '/api'
+
 
 // Start the server
 app.listen(port, () => {
