@@ -23,7 +23,7 @@ const AboutClaudia = () => {
       {/* Individual About Me Section */}
       <section id="individual-about">
         <div id="about-div">
-          <img id="img" src="/Images/cj_profile.jpeg" alt="Description of Cj's photo" />
+          <img id="img" src="/Images/cj_profile.jpg" alt="Description of Cj's photo" />
           
           <div id="about-stack">
             <h3 id="about-name">Name</h3>
