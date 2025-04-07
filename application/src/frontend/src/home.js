@@ -132,11 +132,7 @@ const Home = () => {
             No matching results found. Showing recent posts instead.
             </p>
         )}
-        {entries.length === 0 && !loading && (
-          <p style={{ color: 'black', fontStyle: 'italic' }}>
-          No matching results found. Showing recent posts instead.
-          </p>
-      )}
+    
         {/* Display Results */}
         <div style={{
           display: 'grid',
