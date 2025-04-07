@@ -142,6 +142,11 @@ const Home = () => {
                   backgroundColor: '#f9f9f9'
                 }}>
                   <h3>{entry.title}</h3>
+                  <img 
+                    src={`http://44.201.159.31/images/${entry.images}`} 
+                    alt={entry.title} 
+                    style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '0.5rem' }} 
+                  />
                   <p>{entry.description}</p>
                   <p><strong>Category:</strong> {entry.category || 'Uncategorized'}</p>
                 </div>
@@ -154,6 +159,11 @@ const Home = () => {
                   backgroundColor: '#f9f9f9'
                 }}>
                   <h3>{entry.title}</h3>
+                  <img 
+                    src={`http://44.201.159.31/Images/${entry.images}`} 
+                    alt={entry.title} 
+                    style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '0.5rem' }} 
+                  />
                   <p>{entry.description}</p>
                   <p><strong>Category:</strong> {entry.category || 'Uncategorized'}</p>
                 </div>
