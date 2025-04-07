@@ -19,7 +19,7 @@ const Home = () => {
           fetch('http://44.201.159.31/api/categories'),
           fetch('http://44.201.159.31/api/recent-posts')
         ]);
-  
+
         console.log('Categories response:', catRes);
         console.log('Recent posts response:', postRes);
   
@@ -83,7 +83,7 @@ const Home = () => {
       setLoading(false);
     }
   };
-  
+
   return (
     <div>
       <nav>
@@ -127,11 +127,7 @@ const Home = () => {
         {/* Loading and Error Feedback */}
         {loading && <p>Loading...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        {noResults && !loading && (
-          <p style={{ color: 'black', fontStyle: 'italic' }}>
-            No matching results found. Showing recent posts instead.
-            </p>
-        )}
+        {(Array.isArray(entries) ? entries : []).length === 0 && <p>No matching results found. Showing recent posts instead.</p>}
 
         {/* Display Results */}
         <div style={{
