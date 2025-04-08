@@ -14,6 +14,7 @@
 
 5. Database username: team02csc648
 6. Database password: [REDACTED]
+
 7. Database name (basically the name that contains all your tables)
 8. Instructions on how to use the above information.
 
