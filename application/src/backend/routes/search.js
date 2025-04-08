@@ -9,7 +9,8 @@ router.post('/', async (req, res) => {
     let query = `
         SELECT product_id, title, description, price, category, images
         FROM Product
-        WHERE title LIKE ? OR description LIKE ?
+
+        WHERE (title LIKE ? OR description LIKE ?)
     `;
     const params = [`%${searchText}%`, `%${searchText}%`];
 
