@@ -12,10 +12,17 @@ router.post('/', async (req, res) => {
 
         WHERE (title LIKE ? OR description LIKE ?)
     `;
+    let recentCategoryProductsQuery = `
+        SELECT product_id, title, description, price, category, images
+        FROM Product
+        ORDER BY p.created_at DESC
+        LIMIT 4
+    `;
     const params = [`%${searchText}%`, `%${searchText}%`];
 
     if (filter && filter !== 'All') {
         query += ' AND category = ?';
+        recentCategoryProductsQuery += ' AND category = ?';
         params.push(filter);
     }
 
@@ -27,7 +34,8 @@ router.post('/', async (req, res) => {
         console.log("📦 Results:", results);
 
         if (results.length === 0) {
-            res.json({ message: 'No products found matching your search.', results: [] });
+            const [recentResults] = await db.query(recentCategoryProductsQuery);
+            res.json(recentResults);
         } else {
             res.json(results);
         }
