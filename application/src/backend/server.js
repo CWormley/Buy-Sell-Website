@@ -26,6 +26,8 @@ app.use('/api/categories', categoriesRoutes);
 app.use('/api/products', productsRoutes);
 app.use('/api/search', searchRoutes);
 app.use('/api/recent-posts', recentPostsRoutes); // Adjusted endpoint for recent posts
+app.use('/images', express.static(path.join(__dirname, '..', 'frontend', 'public', 'Images')));
+ // Serve images from public/images directory
 
 // Test DB query route
 app.get('/test-db', async (req, res) => {
@@ -53,4 +55,3 @@ app.get('*', (req, res) => {
 app.listen(port, '0.0.0.0', () => {
   console.log(`🚀 Server running at :${port}`);
 });
-

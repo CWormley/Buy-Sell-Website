@@ -7,6 +7,7 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
   const [recentPosts, setRecentPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [noResults, setNoResults] = useState(false);
   const [error, setError] = useState(null);
 
   // Fetch categories and recent posts in parallel
@@ -49,6 +50,7 @@ const Home = () => {
 
   const handleSearch = async () => {
     setLoading(true);
+    setNoResults(false);
     try {
       const response = await fetch('http://44.201.159.31/api/search', {
         method: 'POST',
@@ -67,6 +69,7 @@ const Home = () => {
   
       // If no search results are found, fallback to recentPosts
       if (data.length === 0) {
+        setNoResults(true);
         setEntries(recentPosts.length > 0 ? recentPosts : []);
       } else {
         setEntries(data);
@@ -79,7 +82,6 @@ const Home = () => {
       setLoading(false);
     }
   };
-    
 
   return (
     <div>
@@ -122,8 +124,7 @@ const Home = () => {
         {/* Loading and Error Feedback */}
         {loading && <p>Loading...</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
-
-        {(Array.isArray(entries) ? entries : []).length === 0 && <p>No matching results from search, showing recent posts:</p>}
+        {(Array.isArray(entries) ? entries : []).length === 0 && <p>No matching results found. Showing recent posts instead.</p>}
 
         {/* Display Results */}
         <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1rem'}}>
@@ -138,22 +139,24 @@ const Home = () => {
                   backgroundColor: '#f9f9f9'
                 }}>
                   <h3>{entry.title}</h3>
+                  <img src={"/Images/" + entry.images} alt={entry.title} style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '0.5rem' }} />
                   <p>{entry.description}</p>
                   <p><strong>Category:</strong> {entry.category || 'Uncategorized'}</p>
                 </div>
             ))
             : (Array.isArray(recentPosts) ? recentPosts : []).map((entry, index) => (
-              <div key={index} style={{
-                border: '1px solid #ccc',
-                borderRadius: '8px',
-                padding: '1rem',
-                backgroundColor: '#f9f9f9'
-              }}>
-                <h3>{entry.title}</h3>
-                <p>{entry.description}</p>
-                <p><strong>Category:</strong> {entry.category || 'Uncategorized'}</p>
-              </div>
-            ))
+                <div key={index} style={{
+                  border: '1px solid #ccc',
+                  borderRadius: '8px',
+                  padding: '1rem',
+                  backgroundColor: '#f9f9f9'
+                }}>
+                  <h3>{entry.title}</h3>
+                  <img src={"/Images/" + entry.images} alt={entry.title} style={{ width: '100%', height: 'auto', borderRadius: '8px', marginBottom: '0.5rem' }} />
+                  <p>{entry.description}</p>
+                  <p><strong>Category:</strong> {entry.category || 'Uncategorized'}</p>
+                </div>
+              ))
           }
         </div>
       </div>
