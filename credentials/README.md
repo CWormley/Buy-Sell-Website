@@ -14,9 +14,9 @@
 
 5. Database username: team02csc648
 6. Database password: [REDACTED]
-
-7. Database name (basically the name that contains all your tables)
-8. Instructions on how to use the above information.
+7. Database name: CSC_Test
+8. Instructions on how to use the above information :
+   run mysql -h [RDS_ENDPOINT_REDACTED] -u team02csc648 -p inside ssh terminal
 
 # Most important things to Remember
 ## These values need to kept update to date throughout the semester. <br>
