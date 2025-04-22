@@ -1,36 +1,65 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client'; // Import ReactDOM for React 18
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import Routes for React Router v6
-import About from './about';  // Import the About page component
-import Home from './home';    // Assuming you have the HomePage component
-import AboutNathan from './aboutMePages/about_nathan'; // Nathan's Page
-import AboutDavis from './aboutMePages/about_davis';   // Davis' Page
-import AboutFatimah from './aboutMePages/about_fatimah'; // Fatimah's Page
-import AboutDaniel from './aboutMePages/about_daniel'; // Daniel's Page
-import AboutClaudia from './aboutMePages/about_claudia'; // Claudia's Page
-import './style.css';  // Import the global CSS file
+import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import About from './about';
+import Home from './home';
+import Dashboard from './dashboard';
+import Signin from './signandreg/signin';
+import Register from './signandreg/register';
+import Postitem from './postitem';
+import AboutNathan from './aboutMePages/about_nathan';
+import AboutDavis from './aboutMePages/about_davis';
+import AboutFatimah from './aboutMePages/about_fatimah';
+import AboutDaniel from './aboutMePages/about_daniel';
+import AboutClaudia from './aboutMePages/about_claudia';
+import Navbar from './navbar';
+import ListingDetail from './listing';
+import MessageSeller from './messageseller';
+import Map from './map';
+import './style.css';
 
 const App = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    // Fetch categories once globally
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch('http://44.201.159.31/api/categories');
+        const data = await res.json();
+        setCategories(data);
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+      }
+    };
+    fetchCategories();
+  }, []);
+
   return (
     <Router>
-      <div>
-        {/* Define the Routes */}
-        <Routes>
-          <Route path="/" element={<Home />} />  {/* Home Page Route */}
-          <Route path="/about" element={<About />} />  {/* About Page Route */}
-          <Route path="/nathan" element={<AboutNathan />} /> {/* Nathan's Page Route */}
-          <Route path="/davis" element={<AboutDavis />} />  {/* Davis' Page Route */}
-          <Route path="/fatimah" element={<AboutFatimah />} /> {/* Fatimah's Page Route */}
-          <Route path="/claudia" element={<AboutClaudia />} /> {/* Claudia's Page Route */}
-          <Route path="/daniel" element={<AboutDaniel />} /> {/* Daniel's Page Route */}
-        </Routes>
-      </div>
+      {/* Navbar always shows */}
+      <Navbar categories={categories} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/postitem" element={<Postitem />} />
+        <Route path="/nathan" element={<AboutNathan />} />
+        <Route path="/davis" element={<AboutDavis />} />
+        <Route path="/fatimah" element={<AboutFatimah />} />
+        <Route path="/claudia" element={<AboutClaudia />} />
+        <Route path="/daniel" element={<AboutDaniel />} />
+        <Route path="/item/:id" element={<ListingDetail />} />
+        <Route path="/message" element={<MessageSeller />} />
+        <Route path="/map" element={<Map />} />
+
+
+      </Routes>
     </Router>
   );
 };
 
-// Render the App component
-const root = ReactDOM.createRoot(document.getElementById('root')); // Create root for React 18
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
-
-export default App;

@@ -4,13 +4,6 @@ import './outline.css'; // Make sure the CSS file is in the correct directory
 const AboutDavis = () => {
   return (
     <div>
-      {/* Navigation Bar */}
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-        </ul>
-      </nav>
 
       {/* Individual Name and Role */}
       <section id="individual-section">

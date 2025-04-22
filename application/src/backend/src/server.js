@@ -26,7 +26,7 @@ app.use('/api/categories', categoriesRoutes);
 app.use('/api/products', productsRoutes);
 app.use('/api/search', searchRoutes);
 app.use('/api/recent-posts', recentPostsRoutes); // Adjusted endpoint for recent posts
-app.use('/images', express.static(path.join(__dirname, '..', 'frontend', 'public', 'Images')));
+app.use('/images', express.static(path.join(__dirname, '..', '..', 'frontend', 'public', 'Images')));
  // Serve images from public/images directory
 
 // Test DB query route
@@ -48,7 +48,7 @@ app.get('/test', (req, res) => {
 
 // Catch-all route to serve React app for any other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+  res.sendFile(path.join(__dirname, '../../frontend/build/index.html'));
 });
 
 // Start server

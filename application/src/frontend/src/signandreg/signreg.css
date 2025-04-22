@@ -1,0 +1,144 @@
+#form-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.signin-form {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.signin-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #491855;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.signin-button:hover {
+    background-color: #3a1244;
+}
+
+.forgot-password {
+    text-align: right; 
+    margin-bottom: 15px; 
+}
+
+.forgot-password a {
+    font-size: 14px;
+    color: #491855; 
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.forgot-password a:hover {
+    color: #3a1244; 
+    text-decoration: underline; 
+}
+
+.register-link {
+    text-align: center; 
+    margin-top: 15px; 
+    font-size: 14px;
+    color: #555;
+}
+
+.register-link a {
+    color: #491855; 
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.register-link a:hover {
+    color: #3a1244; 
+    text-decoration: underline; 
+}
+
+.form-group.terms {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 14px;
+    margin-bottom: 15px;
+    padding-left: 0; 
+}
+
+.form-group.terms input[type="checkbox"] {
+    margin-right: -11em;
+    margin-left: -12em; 
+}
+
+.form-group.terms a {
+    color: #491855; 
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.form-group.terms a:hover {
+    color: #3a1244;
+    text-decoration: underline;
+}
+
+/* Highlight input fields with errors */
+.error {
+    border: 1px solid red;
+    background-color: #ffe6e6;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.terms-error {
+    margin-top: -10px; 
+    margin-left: 25px; 
+}

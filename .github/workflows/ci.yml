@@ -1,0 +1,44 @@
+name: Node.js CI with Jest
+
+on:
+  push:
+    branches:
+      - feat/* # Replace by CI branch
+      - dev
+  pull_request:
+    branches:
+      - feat/* # Replace by CI branch
+      - dev
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '23'
+
+      - name: Install backend dependencies
+        run: |
+          cd application/src/backend
+          npm install
+
+      - name: Run Jest tests on backend
+        run: |
+          cd application/src/backend
+          npm run test
+
+      - name: Install frontend dependencies
+        run: |
+          cd application/src/frontend
+          npm install
+
+      - name: Run Jest tests on frontend
+        run: |
+          cd application/src/frontend
+          npm run test

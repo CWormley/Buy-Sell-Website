@@ -11,6 +11,7 @@ body {
     align-items: center;
     height: 43vh;
     background: transparent;
+    background-color: rgba(74, 60, 106, 1.00);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -30,7 +31,7 @@ body {
     margin: 0;
     font-weight: lighter;
     font-size: 20px;
-    color: gray;
+    color: black;
 }
 
 #individual-about {

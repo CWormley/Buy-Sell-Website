@@ -4,13 +4,6 @@ import './outline.css'; // Ensure your CSS is in the correct directory
 const AboutDaniel = () => {
   return (
     <div>
-      {/* Navigation Bar */}
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-        </ul>
-      </nav>
 
       {/* Individual Name and Role */}
       <section id="individual-section">
@@ -26,8 +19,8 @@ const AboutDaniel = () => {
           <img id="img" src="/Images/Daniel.jpg" alt="Description of Daniel's photo" />
           
           <div id="about-stack">
-            <h3 id="about-name">Name</h3>
-            <h5 id="about-role">Role</h5>
+            <h3 id="about-name">Daniel</h3>
+            <h5 id="about-role">Frontend Lead</h5>
             
             <p id="description">
               Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation exquisite 

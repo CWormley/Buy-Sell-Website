@@ -4,13 +4,6 @@ import './outline.css'; // Make sure the CSS file is in the correct directory
 const AboutNathan = () => {
   return (
     <div>
-      {/* Navigation Bar */}
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-        </ul>
-      </nav>
 
       {/* Individual Name and Role */}
       <section id="individual-section">
@@ -42,17 +35,15 @@ const AboutNathan = () => {
             </p>
 
             <div style={{ marginBottom: '200px' }}>
-            <pre>
-              <p style={{ fontFamily: 'Courier New' }}>
-                                     v  ~.      v<br /><br />
-                            v           /|<br /><br />
-                                       / |          v<br /><br />
-                                v     /__|__<br /><br />
-                                    \--------/<br /><br />
-                  ~~~~~~~~~~~~~~~~~~~`~~~~~~'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br /><br />
-              </p>
-            </pre>
-</div>
+              <pre style={{ fontFamily: 'Courier New', whiteSpace: "pre"}}>
+                      v  ~.      v<br />
+            v           /|<br />
+                      / |          v<br />
+                v     /__|__<br />
+                    \--------/<br />
+  ~~~~~~~~~~~~~~~~~~~`~~~~~~'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+              </pre>
+            </div>
           </div>
         </div>
       </section>
