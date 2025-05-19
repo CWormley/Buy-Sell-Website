@@ -35,14 +35,17 @@ const AboutNathan = () => {
             </p>
 
             <div style={{ marginBottom: '200px' }}>
-              <pre style={{ fontFamily: 'Courier New', whiteSpace: "pre"}}>
-                      v  ~.      v<br />
-            v           /|<br />
-                      / |          v<br />
-                v     /__|__<br />
-                    \--------/<br />
-  ~~~~~~~~~~~~~~~~~~~`~~~~~~'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-              </pre>
+            <pre style={{ fontFamily: 'Courier New', whiteSpace: 'pre' }}>
+{`
+                      ~.    v
+                v     /|\\
+                     / | \\     v
+                    /__|__\\
+                  \\--------/
+~~~~~~~~~~~~~~~~~~~\`~~~~~~'~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`}
+</pre>
+
             </div>
           </div>
         </div>

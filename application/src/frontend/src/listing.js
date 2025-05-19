@@ -1,57 +1,98 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+/**************************************************************
+* Class::  CSC-648 Spring 2025
+* Name:: Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
+* Group-Name:: Team 02
+* Project:: Gator Market
+*
+* File:: listing.js
+*
+* Description:: 
+* Displays a static example listing detail page for Gator Market.
+* Includes listing image, title, price, category, course, and description.
+* Provides a button that links to the Contact Seller page.
+* Layout uses basic flexbox styling for responsiveness.
+* 
+**************************************************************/
+import React, {useEffect, useState} from 'react';
+import { useParams, Link } from 'react-router-dom';
 
 const Listing = () => {
+    const { productId } = useParams();
+    const [product, setProduct] = useState(null);
+    console.log(productId);
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/show_product/${productId}`);
+                const data = (await response.json())[0];
+
+                const filename = data.images;
+                const imageResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/protected-image/${filename}`);
+
+                if (!imageResponse.ok) {
+                    throw new Error('Failed to load image');
+                }
+
+                const imageBlob = await imageResponse.blob();
+                const imageObjectURL = URL.createObjectURL(imageBlob);
+
+                const formatted = {
+                    id: data.product_id,
+                    title: data.title,
+                    description: data.description,
+                    price: data.price,
+                    category: data.category,
+                    class_name: data.class_name,
+                    image: imageObjectURL
+                };
+
+                setProduct(formatted);
+                console.log('Product fetched:', formatted);
+            } catch (error) {
+                console.error('Failed to fetch product:', error);
+            }
+        };
+
+        fetchProduct();
+    }, [productId]);
+
+    if (!product) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <div>
-            <header>
-                <h1>Gator Market</h1>
-            </header>
 
             <div className="listing-detail" style={{ padding: '2rem', display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
-                <Link to="/" style={{
-                    display: 'inline-block',
-                    margin: '1rem 2rem',
-                    fontSize: '1.2rem',
-                    color: '#4a3c6a',
-                    textDecoration: 'none'
-                }}>
-                    ← Back to Home
-                </Link>
 
                 <div style={{ flex: 1, minWidth: '300px' }}>
                     <img
-                        src="/Images/book_example.jpg"
-                        alt="CSC 648 Textbook"
+                        src={product.image}
+                        alt= {product.title }
                         style={{ width: '100%', maxWidth: '500px', borderRadius: '8px' }}
                     />
                 </div>
 
                 <div style={{ flex: 1, minWidth: '300px' }}>
-                    <h2>CSC 648 Textbook</h2>
-                    <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>$45</p>
-                    <p><strong>Category:</strong> Textbooks</p>
-                    <p><strong>Course:</strong> CSC 648-848</p>
-
+                    <h2>{product.title}</h2>
+                    <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}> ${product.price}</p>
+                    <p><strong>Category:</strong> {product.category}</p>
+                    {product.class_name && (
+                        <p><strong>Course:</strong> {product.class_name}</p>
+                    )}
                     <div style={{ marginTop: '1rem' }}>
                         <p><strong>Description:</strong></p>
-                        <textarea
-                            readOnly
-                            value="Great condition. Gently used. Covers all major course topics."
-                            style={{
-                                width: '100%',
-                                minHeight: '120px',
-                                border: '1px solid #aaa',
-                                borderRadius: '6px',
-                                padding: '0.5rem',
-                                resize: 'none'
-                            }}
-                        />
+                        <p>{product.description}</p>
+                            
+                    
                     </div>
-
-                    <Link to="/message">
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1.5rem' }}>
+                    <Link
+                        to="/message"
+                        state={{ product }}
+                        style={{ textDecoration: 'none' }}
+                        >
                         <button style={{
-                            marginTop: '1.5rem',
                             padding: '0.6rem 1.2rem',
                             backgroundColor: '#4a3c6a',
                             color: 'white',
@@ -59,9 +100,10 @@ const Listing = () => {
                             borderRadius: '6px',
                             cursor: 'pointer'
                         }}>
-                            Message Seller
+                            Contact Seller
                         </button>
                     </Link>
+                    </div>
                 </div>
             </div>
         </div>

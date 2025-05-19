@@ -1,6 +1,19 @@
+/**************************************************************
+* Class::  CSC-648 Spring 2025
+* Name:: Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
+* Group-Name:: Team 02
+* Project:: Gator Market
+*
+* File:: deletemodal.js
+*
+* Description:: 
+* This React component renders a confirmation modal with a message and "Yes"/"No" buttons. 
+* It displays only when isOpen is true and triggers onConfirm or onClose callbacks based on user action. 
+* Styles are applied via style.css.
+* 
+**************************************************************/
 import React from 'react';
 import './style.css';
-
 const Modal = ({ isOpen, onClose, onConfirm, message }) => {
     if (!isOpen) return null;
 

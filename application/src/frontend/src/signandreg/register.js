@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import './signreg.css';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [acceptTerms, setAcceptTerms] = useState(false);
-
+  const navigate = useNavigate();
   // Error states
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [termsError, setTermsError] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,8 +54,43 @@ const Register = () => {
     }
 
     // Add logic for registration 
-    console.log("Email:", email);
-    console.log("Password:", password);
+    const userData = {
+      email: email,
+      password: password
+    };
+
+    // Make the API call to register the user
+  fetch(`${process.env.REACT_APP_BACKEND_URL}/api/user_reg`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(userData)
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Registration response:', data);
+      if (data.message === 'Registration successful!') {
+        setSuccessMessage(data.message);
+        // Handle success (e.g., redirect to login page)
+        setTimeout(() => {
+                navigate('/signin');
+            }, 2000);
+        
+      } else if (data.message === 'Email already exists') {
+      setSuccessMessage('Email already registered. Redirecting to login...');
+      setTimeout(() => {
+        navigate('/signin');
+      }, 2000);
+    }else {
+        // Handle error messages from the backend
+        setSuccessMessage(data.message || 'Registration failed');
+      }
+    })
+    .catch((err) => {
+      console.error('Error registering user:', err);
+      alert('An error occurred during registration. Please try again.');
+    });
   };
 
   return (
@@ -115,6 +152,22 @@ const Register = () => {
           <p>Already have an account? <a href="/signin">Sign In</a></p>
         </div>
       </form>
+      {successMessage && (
+       <div style={{
+          position: 'fixed',
+          top: '1.5rem',
+          right: '1.5rem',
+          backgroundColor: '#d4edda',
+          color: '#155724',
+          padding: '1rem 1.5rem',
+          borderRadius: '8px',
+          boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+          zIndex: 1000,
+          fontWeight: 'bold',
+        }}>
+        {successMessage}
+        </div>
+        )}
     </div>
   );
 };

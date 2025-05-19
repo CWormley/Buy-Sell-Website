@@ -1,3 +1,18 @@
+/**************************************************************
+* Class::  CSC-648 Spring 2025
+* Name:: Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
+* Group-Name:: Team 02
+* Project:: Gator Market
+*
+* File:: about.test.js
+*
+* Description:: 
+* This file contains the test cases for the About component.
+* It verifies that the component renders correctly and displays the team members' information.
+*
+* The test cases check for the presence of team member names and images.
+* It uses the React Testing Library to render the component and query for elements in the DOM.
+**************************************************************/
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
