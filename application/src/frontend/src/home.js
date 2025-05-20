@@ -221,17 +221,16 @@ const Home = () => {
                                 <h3>{entry.title}</h3>
                                 <div style={{
                                     display: 'flex',
-                                    justifyContent: 'center'
+                                    justifyContent: 'center',
+                                    width: '100%',
+                                    height: '200px',
                                     }}>
                                 <img
                                     src={entry.imageURL}
                                     alt={entry.title}
                                     style={{
-                                        maxWidth: '200px',
-                                        maxHeight: '200px',
-                                        width: 'auto',
-
-                                        height: 'auto',
+                                        width: '100%',
+                                        height: '100%',
                                         objectFit: 'contain',
                                         borderRadius: '8px',
                                         marginBottom: '0.5rem'
