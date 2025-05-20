@@ -524,24 +524,27 @@ nav.navbar ul li button img {
 }
 .listing-header {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between; /* Space out title and delete button */
     align-items: center; /* Vertically align title and delete button */
     margin-bottom: 10px;
     position: relative; /* Ensure the date can be positioned independently */
+    gap: 0.5rem;
 }
 
 .listing-header h3 {
     margin: 0;
-    font-size: 20px;
+    font-size: 16px;
     text-align: left; 
+    font-weight: lighter;
 }
 
 .listing-header span {
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    font-size: 16px;
+    padding-top: 10px;
+    font-size: 20px;
+    flex: 1 1 100%; /* force date to go full-width on small screens if needed */
+    text-align: center;
+    font-weight: bold;
 }
 
 .listing-image {
@@ -553,7 +556,7 @@ nav.navbar ul li button img {
 
 .delete-button {
     position: absolute; 
-    top: 5px; 
+    top: 0px; 
     right: 5px; 
     padding: 5px 10px;
     background-color: #ff4d4d;

@@ -261,8 +261,8 @@ const Dashboard = () => {
                                     listings.map(listing => (
                                         <div className="listing-card" key={listing.id}>
                                             <div className="listing-header">
-                                                <h3>{listing.title}</h3>
-                                                <span><strong>Date:</strong> {listing.date}</span>
+                                                <h3><strong>Date:</strong> {listing.date}</h3>
+                                                <span>{listing.title}</span>
                                                 <button className="delete-button" onClick={() => handleDeleteListing(listing.id)}>
                                                     Delete
                                                 </button>

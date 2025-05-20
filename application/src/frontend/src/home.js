@@ -211,18 +211,33 @@ const Home = () => {
                                 borderRadius: '8px',
                                 padding: '1rem',
                                 backgroundColor: '#f9f9f9',
+                                width: '300px',
+                                height: '500px', // set a fixed height
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'space-between',
+                                overflow: 'hidden',
                             }}>
                                 <h3>{entry.title}</h3>
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'center'
+                                    }}>
                                 <img
                                     src={entry.imageURL}
                                     alt={entry.title}
                                     style={{
-                                        width: '100%',
+                                        maxWidth: '200px',
+                                        maxHeight: '200px',
+                                        width: 'auto',
+
                                         height: 'auto',
+                                        objectFit: 'contain',
                                         borderRadius: '8px',
                                         marginBottom: '0.5rem'
                                     }}
                                 />
+                                </div>
                                 <p>{entry.description}</p>
                                 <p><strong>Category:</strong> {entry.category?.name || entry.category || 'Uncategorized'}</p>
                                 <button style={{
