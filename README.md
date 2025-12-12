@@ -1,23 +1,143 @@
-# csc648 Repository
+# Buy & Sell Marketplace
 
-## Please when ready add your teams application URL or IP to the repository description. This will help with grading. Teams are expected to keep this value up to date.
+A full-stack web application for buying and selling items in a local marketplace. Users can create listings, search for products, message sellers, and manage their account with a secure authentication system.
 
-## Please do the following steps before completing Milestone 0.
-1. Change the name of the repository. All that needs to change is the NN to your respective team number. Team numbers whose value is less than 10, please pad with a 0. Ex team 1 is Team01 team 11 is Team11. Please make sure to also remove the username from the repository as well. Teams with incorrectly name repository will have points deducted from their milestone 0 grades.
-      - Please follow the naming convention assigned by your instructor.
+## Project Overview
 
-1. PLEASE REMOVE THE USERNAME FROM THE REPOSITORY NAME!!!
+This is a collaborative team project built as a Software Engineering capstone course application. The platform provides a complete e-commerce experience with real-time messaging, product search, and user account management.
 
-2. Add ALL members of your team to this repository. For it to count, they must ACCEPT the invite.
+**Live Application:** [http://44.201.159.31](http://44.201.159.31)
 
-3. Fill out the table below
+## Key Features
 
-| Student Name | School Email  | GitHub Username|
-|    :---:     |     :---:     |     :---:      |
-| Nathan Donat-Filliod|ndonatfilliod@sfsu.edu   | DonatNathan    |
-| Claudia Wormley     |cwormley@sfsu.edu        | CWormley       |
-| Daniel Cervantes    |dcervantes2@sfsu.edu     | daniecervantes |
-| Davis Rosenstein    |drosenstein@sfsu.edu     | davisjoro      |
-| Fatimah Abdolcader  |fabdolcader@sfsu.edu     | Fatimah520     |
+- **User Authentication & Authorization** - Secure registration and login system
+- **Product Listings** - Create, view, edit, and delete product listings with images
+- **Advanced Search** - Filter and search products by category and keywords
+- **Messaging System** - Direct messaging between buyers and sellers
+- **User Dashboard** - Manage listings, profile, and view purchase/sale history
+- **Image Upload** - Support for product images with file upload functionality
+- **Category Management** - Organize products by predefined categories
+- **Responsive Design** - Mobile-friendly interface
 
-## NO code needs to be stored in the root of your repository. You may rename the application folder if you like to your team's application name. But all source code related to your team's application should be stored inside the application folder.
+## Tech Stack
+
+### Frontend
+- **React** 18.0 - UI library
+- **React Router DOM** 6.30 - Client-side routing
+- **CSS** - Custom styling with responsive design
+- **Jest** - Unit testing framework
+
+### Backend
+- **Node.js & Express** 4.21 - Server framework
+- **MySQL** - Relational database (AWS RDS)
+- **Multer** - File upload middleware
+- **Express Session** - Session management and authentication
+- **CORS** - Cross-origin resource sharing
+
+### Infrastructure
+- **AWS EC2** - Application hosting
+- **AWS RDS** - Database hosting
+- **AWS S3** - File storage (planned)
+
+## Team Members
+
+| Name | GitHub |
+|------|--------|
+| Nathan Donat-Filliod | [DonatNathan](https://github.com/DonatNathan) |
+| Claudia Wormley | [CWormley](https://github.com/CWormley) |
+| Daniel Cervantes | [daniecervantes](https://github.com/daniecervantes) |
+| Davis Rosenstein | [davisjoro](https://github.com/davisjoro) |
+| Fatimah Abdolcader | [Fatimah520](https://github.com/Fatimah520) |
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v14+)
+- npm or yarn
+- MySQL database
+- Git
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/CWormley/Buy-Sell-Website.git
+cd Buy-Sell-Website/application
+
+# Install backend dependencies
+cd src/backend
+npm install
+npm run start
+
+# In a new terminal, install frontend dependencies
+cd ../frontend
+npm install
+npm start
+```
+
+The application will be available at:
+- **Frontend:** http://localhost:8080
+- **Backend:** http://localhost:5000
+
+### Running Tests
+
+```bash
+# Backend tests
+cd src/backend
+npm run test
+
+# Frontend tests
+cd src/frontend
+npm run test
+
+# View coverage reports
+# Backend: ./src/backend/coverage/lcov-report/index.html
+# Frontend: ./src/frontend/coverage/lcov-report/index.html
+```
+
+## Project Structure
+
+```
+application/
+├── src/
+│   ├── backend/              # Express.js server & API routes
+│   │   ├── src/
+│   │   │   ├── server.js     # Main server file
+│   │   │   ├── db.js         # Database connection
+│   │   │   └── routes/       # API endpoints
+│   │   ├── test/             # Jest unit tests
+│   │   └── package.json
+│   └── frontend/             # React application
+│       ├── src/
+│       │   ├── index.js      # Entry point
+│       │   ├── auth.js       # Authentication logic
+│       │   ├── dashboard.js  # User dashboard
+│       │   ├── listing.js    # Product listing page
+│       │   └── ...           # Other components
+│       ├── test/             # Jest tests
+│       └── package.json
+└── Database.sql              # Database schema
+```
+
+## Key Accomplishments
+
+- Built a scalable full-stack application handling user authentication and authorization
+- Implemented RESTful API with proper route organization and error handling
+- Designed responsive UI with React component-based architecture
+- Integrated AWS cloud services for hosting and databases
+- Achieved test coverage for critical backend functionality
+- Implemented real-time messaging between users
+- Created secure file upload functionality for product images
+
+## Development Process
+
+This project was developed using Agile methodology with:
+- Regular sprint planning and reviews
+- Git-based collaboration with proper branching strategy
+- Continuous integration practices
+- Test-driven development approach
+- Database design and optimization
+
+## License
+
+ISC
