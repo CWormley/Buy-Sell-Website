@@ -6,7 +6,6 @@ A full-stack web application for buying and selling items in a local marketplace
 
 This is a collaborative team project built as a Software Engineering capstone course application. The platform provides a complete e-commerce experience with real-time messaging, product search, and user account management.
 
-**Live Application:** [http://44.201.159.31](http://44.201.159.31)
 
 ## Key Features
 
