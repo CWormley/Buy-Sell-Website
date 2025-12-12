@@ -6,7 +6,7 @@ A full-stack web application for buying and selling items in a local marketplace
 
 This is a collaborative team project built as a Software Engineering capstone course application. The platform provides a complete e-commerce experience with real-time messaging, product search, and user account management.
 
-**Product Document:** [Milestones/M5/Team 02 - Milestone 5.pdf]([Milestones/M5/Team 02 - Milestone 5.pdf](https://github.com/CWormley/Buy-Sell-Website/blob/main/Milestones/M5/Team%2002%20-%20Milestone%205.pdf))
+**Product Document:** ([Milestones/M5/Team 02 - Milestone 5.pdf](https://github.com/CWormley/Buy-Sell-Website/blob/main/Milestones/M5/Team%2002%20-%20Milestone%205.pdf))
 
 
 ## Key Features
