@@ -1,23 +1,27 @@
-/**************************************************************
-* Class::  CSC-648 Spring 2025
-* Name:: Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
-* Group-Name:: Team 02
-* Project:: Gator Market
-*
-* File:: auth_status.js
-*
-* Description:: This file contains the route for checking the authentication status of a user.
-* It handles the GET request to check if a user is logged in and returns the user's information if they are.
-*
-**************************************************************/
+/**
+ * @file auth_status.js
+ * @description Express router for checking user authentication status.
+ * Returns current session information and user identification.
+ * @author Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
+ * @version 1.0.0
+ */
+
 const express = require('express');
+
 const router = express.Router();
 
+/**
+ * GET /api/check-session
+ * Checks if user is currently authenticated
+ * @route GET /
+ * @returns {Object} Authentication status and user ID if logged in
+ */
 router.get('/', (req, res) => {
-    if (req.session.userId) {
-        res.json({ loggedIn: true, user: req.session.userId });
-    } else {
-        res.json({ loggedIn: false });
-    }
+  if (req.session.userId) {
+    res.json({ loggedIn: true, userId: req.session.userId });
+  } else {
+    res.json({ loggedIn: false });
+  }
 });
+
 module.exports = router;

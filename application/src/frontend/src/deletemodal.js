@@ -1,21 +1,26 @@
-/**************************************************************
-* Class::  CSC-648 Spring 2025
-* Name:: Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
-* Group-Name:: Team 02
-* Project:: Gator Market
-*
-* File:: deletemodal.js
-*
-* Description:: 
-* This React component renders a confirmation modal with a message and "Yes"/"No" buttons. 
-* It displays only when isOpen is true and triggers onConfirm or onClose callbacks based on user action. 
-* Styles are applied via style.css.
-* 
-**************************************************************/
+/**
+ * @file deletemodal.js
+ * @description Reusable confirmation modal component for user actions.
+ * Displays yes/no confirmation dialog for destructive operations.
+ * @author Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
+ * @version 1.0.0
+ */
+
 import React from 'react';
 import './style.css';
+
+/**
+ * Modal component - Confirmation dialog
+ * @component
+ * @param {Object} props - Component props
+ * @param {boolean} props.isOpen - Whether modal is visible
+ * @param {Function} props.onClose - Callback when user selects No
+ * @param {Function} props.onConfirm - Callback when user selects Yes
+ * @param {string} props.message - Confirmation message to display
+ * @returns {React.ReactElement|null} Modal overlay or null if not open
+ */
 const Modal = ({ isOpen, onClose, onConfirm, message }) => {
-    if (!isOpen) return null;
+  if (!isOpen) return null;
 
     return (
         <div className="modal-overlay">

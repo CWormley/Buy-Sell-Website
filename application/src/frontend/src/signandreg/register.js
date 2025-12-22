@@ -1,7 +1,20 @@
-import React, { useState } from "react";
+/**
+ * @file register.js
+ * @description User registration form component.
+ * Handles new account creation with email validation and password confirmation.
+ * @author Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
+ * @version 1.0.0
+ */
+
+import React, { useState } from 'react';
 import './signreg.css';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Register component - User account creation form
+ * @component
+ * @returns {React.ReactElement} Registration form with validation
+ */
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

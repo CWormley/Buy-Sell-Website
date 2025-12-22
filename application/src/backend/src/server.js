@@ -1,107 +1,131 @@
-/**************************************************************
-* Class::  CSC-648 Spring 2025
-* Name:: Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
-* Group-Name:: Team 02
-* Project:: Gator Market
-*
-* File:: server.js
-*
-* Description:: 
-* This file contains the server-side code for the Gator Market application.
-* It sets up an Express server, connects to a MySQL database, and defines API routes for categories, products, search, and recent posts.
-* The server listens on a specified port and serves static files from the frontend build directory.
-* The server also includes middleware for CORS and JSON parsing.
-* It has a test route to check the database connection and a catch-all route to serve the React app for any other routes.
-*
-**************************************************************/
+/**
+ * @file server.js
+ * @description Express server for Gator Market application.
+ * Sets up middleware, configures routes, and initializes database connection.
+ * @author Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
+ * @version 1.0.0
+ */
+
 const express = require('express');
 const path = require('path');
-const db = require('./db'); // Assuming you have a db.js to handle DB connection
-const app = express();
-const port = process.env.PORT || 5000;
 const session = require('express-session');
 const cors = require('cors');
+const db = require('./db');
+
+const app = express();
+const port = process.env.PORT || 5000;
+
+// ==================== Middleware Configuration ====================
+
+/**
+ * Configure CORS to allow requests from frontend with credentials
+ */
 app.use(cors({
-  origin: `${process.env.FRONTEND_URL}`,
+  origin: process.env.FRONTEND_URL,
   credentials: true
 }));
 
-app.use(express.json()); // JSON body parser
+/**
+ * Parse incoming JSON request bodies
+ */
+app.use(express.json());
 
+/**
+ * Configure session management
+ */
 app.use(session({
-  secret: process.env.SESSION_SECRET, 
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 3600000,
-    httpOnly: true,
-    secure: false,
-    sameSite: 'lax'  // use 'lax' for local dev unless HTTPS is used
+    maxAge: 3600000,      // 1 hour in milliseconds
+    httpOnly: true,       // Prevent client-side JS access
+    secure: false,        // Set to true for HTTPS in production
+    sameSite: 'lax'       // CSRF protection
   }
 }));
 
+// ==================== Database Connection ====================
 
-// Test DB connection
+/**
+ * Test database connection on server startup
+ */
 db.query('SELECT 1')
-  .then(() => console.log('✅ DB connected!'))
-  .catch(err => console.error('❌ DB connection failed:', err));
+  .then(() => console.log('✅ Database connected'))
+  .catch(err => console.error('❌ Database connection failed:', err));
 
+// ==================== Route Imports ====================
 
-// API Routes
 const categoriesRoutes = require('./routes/categories');
 const searchRoutes = require('./routes/search');
-const recentPostsRoutes = require('./routes/recent-posts'); // Import recent-posts routes
-const userRegRoutes = require('./routes/user_reg'); // Import user registration routes
-const userLoginRoutes = require('./routes/user_log'); // Import user login routes
+const recentPostsRoutes = require('./routes/recent-posts');
+const userRegRoutes = require('./routes/user_reg');
+const userLoginRoutes = require('./routes/user_log');
 const logoutRoute = require('./routes/logout');
-const postRoutes = require('./routes/post'); // Import post routes
-const checkSessionRoute = require('./routes/auth_status'); // Import check session route
-const uploadsRoutes = require('./routes/uploads'); // Import user login routes
-const userProductsRoutes = require('./routes/user_products'); // Import user products routes
-const showProduct = require('./routes/show_product'); // Import show product routes
-const messageRoute = require('./routes/message'); // Import message routes
-const userMessagesRoute = require('./routes/user_messages'); // Import user messages routes
+const postRoutes = require('./routes/post');
+const checkSessionRoute = require('./routes/auth_status');
+const uploadsRoutes = require('./routes/uploads');
+const userProductsRoutes = require('./routes/user_products');
+const showProduct = require('./routes/show_product');
+const messageRoute = require('./routes/message');
+const userMessagesRoute = require('./routes/user_messages');
 
-// Mounting routes for categories, products, and search
+// ==================== Route Configuration ====================
+
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/search', searchRoutes);
-app.use('/api/recent-posts', recentPostsRoutes); // Adjusted endpoint for recent posts
-app.use('/images', express.static(path.join(__dirname, '..', '..', 'frontend', 'public', 'Images'))); // Serve images from public/images directory
-app.use('/api/user_reg', userRegRoutes); // Mount user registration routes
-app.use('/api/user_log', userLoginRoutes); // Mount user login routes
+app.use('/api/recent-posts', recentPostsRoutes);
+app.use('/api/user_reg', userRegRoutes);
+app.use('/api/user_log', userLoginRoutes);
 app.use('/api/logout', logoutRoute);
-app.use('/api/post', postRoutes); // Mount post routes
-app.use('/api/check-session', checkSessionRoute); // Mount check session route
-app.use('/api/protected-image', uploadsRoutes); // Mount uploads routes
+app.use('/api/post', postRoutes);
+app.use('/api/check-session', checkSessionRoute);
+app.use('/api/protected-image', uploadsRoutes);
+app.use('/api/user_products', userProductsRoutes);
+app.use('/api/show_product', showProduct);
+app.use('/api/message', messageRoute);
+app.use('/api/user_messages', userMessagesRoute);
 
-app.use('/api/user_products', userProductsRoutes); // Mount user products routes
-app.use('/api/show_product', showProduct); // Mount show product routes
-app.use('/api/message', messageRoute); // Mount message routes
-app.use('/api/user_messages', userMessagesRoute); // Mount user messages routes
+// Serve static images
+app.use('/images', express.static(path.join(__dirname, '..', '..', 'frontend', 'public', 'Images')));
 
-// Test DB query route
+// ==================== Utility Routes ====================
+
+/**
+ * Health check endpoint for database connectivity
+ * @route GET /test-db
+ * @returns {Object} Success status with current database timestamp
+ */
 app.get('/test-db', async (req, res) => {
   try {
-    const [rows, fields] = await db.query('SELECT NOW()'); // Get current timestamp from DB
+    const [rows] = await db.query('SELECT NOW()');
     res.json({ success: true, data: rows });
   } catch (err) {
-    console.error('DB query error:', err);
+    console.error('Database query error:', err);
     res.status(500).json({ success: false, message: 'Database query failed' });
   }
 });
 
-// Test route
+/**
+ * Server health check endpoint
+ * @route GET /test
+ * @returns {Object} Simple success message
+ */
 app.get('/test', (req, res) => {
-  console.log('Test route hit!');
-  res.json({ message: 'Test successful!' });
+  res.json({ message: 'Server is running' });
 });
 
-// Catch-all route to serve React app for any other routes
+// ==================== Fallback Route ====================
+
+/**
+ * Serve React application for all unmatched routes (SPA fallback)
+ */
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../frontend/build/index.html'));
 });
 
-// Start server
+// ==================== Server Startup ====================
+
 app.listen(port, '0.0.0.0', () => {
-  console.log(`🚀 Server running at :${port}`);
+  console.log(`🚀 Server running on port ${port}`);
 });

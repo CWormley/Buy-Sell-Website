@@ -1,7 +1,21 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+/**
+ * @file signin.js
+ * @description User sign-in/login form component.
+ * Handles email and password authentication with session management.
+ * @author Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
+ * @version 1.0.0
+ */
+
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './signreg.css';
 import { login } from '../auth';
+
+/**
+ * SignIn component - User login form
+ * @component
+ * @returns {React.ReactElement} Login form with email/password inputs
+ */
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

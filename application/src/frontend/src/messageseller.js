@@ -1,32 +1,30 @@
-/**************************************************************
-* Class::  CSC-648 Spring 2025
-* Name:: Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
-* Group-Name:: Team 02
-* Project:: Gator Market
-*
-* File:: messageseller.js
-*
-* Description:: 
-* This component displays a messaging form where users can contact
-* the seller about a specific item. It shows the item's image, details,
-* and provides inputs for contact information and a message.
-* 
-**************************************************************/
-import React,  {useState, useEffect} from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+/**
+ * @file messageseller.js
+ * @description Messaging form component for contacting product sellers.
+ * Allows users to send inquiries about specific products with contact info.
+ * @author Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
+ * @version 1.0.0
+ */
+
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from './auth_controller';
 
+/**
+ * MessageSeller component - Form for messaging product sellers
+ * @component
+ * @returns {React.ReactElement} Message composition form
+ */
 const MessageSeller = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const { isLoggedIn } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
 
-    const [product, setProduct] = useState(location.state?.product || null);
-    const [userContact, setContactInfo] = useState('');
-    const [messageContent, setMessage] = useState('');
-    const [error, setError] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
+  const [product, setProduct] = useState(location.state?.product || null);
+  const [userContact, setContactInfo] = useState('');
+  const [messageContent, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
 
 

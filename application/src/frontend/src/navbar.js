@@ -1,61 +1,62 @@
-/**************************************************************
-* Class::  CSC-648 Spring 2025
-* Name:: Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
-* Group-Name:: Team 02
-* Project:: Gator Market
-*
-* File:: Navbar.js
-*
-* Description:: 
-* This component renders the site-wide navigation bar for Gator Market.
-* It includes:
-* - Logo, branding header, and site notice
-* - Links to core pages (Post Item, Dashboard, About, Map)
-* - Category filter and keyword search bar
-* - Auth navigation (Sign In / Register)
-*
-* Props:
-* - categories: array of category objects used in the dropdown filter
-*
-**************************************************************/
+/**
+ * @file navbar.js
+ * @description Site-wide navigation bar component with search and category filtering.
+ * Provides navigation links, search functionality, and user authentication controls.
+ * @author Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
+ * @version 1.0.0
+ */
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './style.css';
 import { useAuth } from './auth_controller';
 
+/**
+ * Navbar component - Main navigation bar
+ * @component
+ * @param {Object} props - Component props
+ * @param {Array} props.categories - Array of category objects for filtering
+ * @returns {React.ReactElement} Navigation bar with search and links
+ */
 const Navbar = ({ categories }) => {
-    const navigate = useNavigate();
-    const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const [searchTerm, setSearchTerm] = useState('');
-    const [filter, setFilter] = useState('All Categories');
-    const { isLoggedIn, logout } = useAuth();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filter, setFilter] = useState('All Categories');
+  const { isLoggedIn, logout } = useAuth();
 
+  /**
+   * Sync search term and filter from URL parameters
+   */
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const querySearch = params.get('search') || '';
+    const queryFilter = params.get('filter') || 'All Categories';
+    setSearchTerm(querySearch);
+    setFilter(queryFilter);
+  }, [location.search]);
 
-    // Sync search term and filter from URL
-    useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const querySearch = params.get('search') || '';
-        const queryFilter = params.get('filter') || 'All Categories';
-        setSearchTerm(querySearch);
-        setFilter(queryFilter);
-    }, [location.search]);
+  /**
+   * Handle search submission
+   */
+  const handleSearch = () => {
+    const params = new URLSearchParams();
 
-    const handleSearch = () => {
-        const params = new URLSearchParams();
+    if (searchTerm.trim()) {
+      params.append('search', searchTerm);
+    }
 
-        if (searchTerm.trim()) {
-            params.append('search', searchTerm);
-        }
+    params.append('filter', filter);
+    navigate(`/?${params.toString()}`);
+  };
 
-        params.append('filter', filter);
-        
-        navigate(`/?${params.toString()}`);
-    };
-
-    const handleLogout = async () => {
-        await logout();
-        navigate('/');
+  /**
+   * Handle user logout
+   */
+  const handleLogout = async () => {
+    await logout();
+    navigate('/');
     };
 
     // Hide search on specific pages if needed

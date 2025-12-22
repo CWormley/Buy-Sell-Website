@@ -1,43 +1,39 @@
-/**************************************************************
-* Class::  CSC-648 Spring 2025
-* Name:: Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
-* Group-Name:: Team 02
-* Project:: Gator Market
-*
-* File:: PostItem.js
-*
-* Description:: 
-* This component provides a form for users to submit new items to Gator Market.
-* It includes fields for title, price, category, optional course (if textbook), description, and image upload.
-*
-* Features:
-* - Controlled form inputs using React state
-* - Conditional course input based on selected category
-* - Simple console logging on submission (to be replaced with backend integration)
-*
-**************************************************************/
-import React, { useState, useEffect } from "react";
+/**
+ * @file postitem.js
+ * @description Product creation form component for listing new items.
+ * Allows users to submit new products with title, price, category, and image.
+ * @author Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
+ * @version 1.0.0
+ */
+
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './auth_controller';
-
 import './style.css';
 
+/**
+ * PostItem component - Product creation form
+ * @component
+ * @returns {React.ReactElement} Form for creating new product listings
+ */
 const PostItem = () => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
-    const [image, setImage] = useState(null);
-    const [category, setCategory] = useState(''); // New state for category
-    const [course, setCourse] = useState(''); // New state for course
-    const [categories, setCategories] = useState([]);
-    const navigate = useNavigate();
-    const { isLoggedIn } = useAuth();
-    const [successMessage, setSuccessMessage] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [image, setImage] = useState(null);
+  const [category, setCategory] = useState('');
+  const [course, setCourse] = useState('');
+  const [categories, setCategories] = useState([]);
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
+  const [successMessage, setSuccessMessage] = useState('');
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        // Add logic to handle form submission (e.g., API call)
-        const formData = new FormData();
+  /**
+   * Handle form submission for creating new product
+   */
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
         formData.append('price', price);

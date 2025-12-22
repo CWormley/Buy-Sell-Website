@@ -1,43 +1,40 @@
-/**************************************************************
-* Class::  CSC-648 Spring 2025
-* Name:: Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
-* Group-Name:: Team 02
-* Project:: Gator Market
-*
-* File:: dashboard.js
-*
-* Description:: 
-* This component displays a user dashboard with tabs to view messages and listings.
-* Users can switch between messages and active listings, post new items, and delete existing listings.
-* Includes a confirmation modal for deleting listings.
-* 
-**************************************************************/
+/**
+ * @file dashboard.js
+ * @description User dashboard component for managing messages and product listings.
+ * Displays tabbed interface for viewing messages and active listings, with deletion functionality.
+ * @author Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
+ * @version 1.0.0
+ */
+
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Modal from './deletemodal';
 import './style.css';
 import { useAuth } from './auth_controller';
-import { useNavigate } from 'react-router-dom';
 
-
+/**
+ * Dashboard component - User control panel
+ * @component
+ * @returns {React.ReactElement} Tabbed dashboard with messages and listings
+ */
 const Dashboard = () => {
-    const { isLoggedIn } = useAuth();
-    const [messages, setMessages] = useState([]);
-    const [listings, setListings] = useState([]);
-    const [activeTab, setActiveTab] = useState('messages');
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [listingToDelete, setListingToDelete] = useState(null);
-    const [username, setUsername] = useState('');
-    const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
+  const [messages, setMessages] = useState([]);
+  const [listings, setListings] = useState([]);
+  const [activeTab, setActiveTab] = useState('messages');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [listingToDelete, setListingToDelete] = useState(null);
+  const [username, setUsername] = useState('');
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!isLoggedIn) return;
-    
-        let isMounted = true;
-        const objectURLs = [];
-    
-        const fetchData = async () => {
-            const email = localStorage.getItem('userEmail');
+  useEffect(() => {
+    if (!isLoggedIn) return;
+
+    let isMounted = true;
+    const objectURLs = [];
+
+    const fetchData = async () => {
+      const email = localStorage.getItem('userEmail');
             if (email) {
                 const userName = email.split('@')[0];
                 setUsername(userName);

@@ -1,29 +1,34 @@
-/**************************************************************
-* Class::  CSC-648 Spring 2025
-* Name:: Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
-* Group-Name:: Team 02
-* Project:: Gator Market
-*
-* File:: listing.js
-*
-* Description:: 
-* Displays a static example listing detail page for Gator Market.
-* Includes listing image, title, price, category, course, and description.
-* Provides a button that links to the Contact Seller page.
-* Layout uses basic flexbox styling for responsiveness.
-* 
-**************************************************************/
-import React, {useEffect, useState} from 'react';
+/**
+ * @file listing.js
+ * @description Product detail/listing page component.
+ * Displays full product information including image, title, price, category, and description.
+ * Provides link to contact seller messaging interface.
+ * @author Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
+ * @version 1.0.0
+ */
+
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
+/**
+ * Listing component - Product detail view
+ * @component
+ * @returns {React.ReactElement} Product detail with image and specifications
+ */
 const Listing = () => {
-    const { productId } = useParams();
-    const [product, setProduct] = useState(null);
-    console.log(productId);
-    useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/show_product/${productId}`);
+  const { productId } = useParams();
+  const [product, setProduct] = useState(null);
+
+  /**
+   * Fetch product details and image on component mount
+   */
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/api/show_product/${productId}`
+        );
+        const data = (await response.json())[0];
                 const data = (await response.json())[0];
 
                 const filename = data.images;

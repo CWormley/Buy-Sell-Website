@@ -1,21 +1,20 @@
-/**************************************************************
-* Class::  CSC-648 Spring 2025
-* Name:: Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
-* Group-Name:: Team 02
-* Project:: Gator Market
-*
-* File:: about.js
-*
-* Description:: 
-* Displays an overview of the project team for CSC 648-848.
-* Shows information and profile photos for each team member,
-* with navigation links to individual member pages.
-*
-**************************************************************/
+/**
+ * @file about.js
+ * @description Team overview page displaying all team members with profile links.
+ * Shows team information and navigation to individual member pages.
+ * @author Claudia Wormley, Nathan Donat-Filliod, Daniel Cervantes, Davis Rosenstein, Fatimah Abdolcader
+ * @version 1.0.0
+ */
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './style.css';
 
+/**
+ * About component - Team introduction page
+ * @component
+ * @returns {React.ReactElement} Team overview with member cards
+ */
 const About = () => {
   return (
     <div>
